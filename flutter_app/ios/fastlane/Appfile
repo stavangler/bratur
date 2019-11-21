@@ -1,0 +1,8 @@
+app_identifier("no.knowit.bratur") # The bundle identifier of your app
+apple_id("johan.reitan@gmail.com") # Your Apple email address
+
+itc_team_id("120218064") # App Store Connect Team ID
+team_id("LSLRB83ZJP") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

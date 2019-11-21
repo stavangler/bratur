@@ -1,0 +1,155 @@
+name: Build and deploy Flutter app
+on:
+  push:
+    paths:
+      - 'flutter_app/*'
+      - '.github/workflows/flutter.yml'
+
+env:
+  FLUTTER_CHANNEL: 'dev'
+
+jobs:
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '13.x'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ./flutter_app
+
+      - name: Set up secret files
+        working-directory: ./flutter_app/android
+        env:
+          ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
+          ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
+          ANDROID_GOOGLE_MAPS_API_KEY: ${{ secrets.ANDROID_GOOGLE_MAPS_API_KEY }}
+        run: |
+          echo "$ANDROID_SIGNING_KEY" | base64 --decode > key.jks
+          echo "$ANDROID_KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$ANDROID_GOOGLE_MAPS_API_KEY" | base64 --decode > app/src/main/res/values/google_maps_api_key.xml
+
+      - name: Build
+        run: flutter build appbundle --build-number $((`git rev-list --count master` + 45))
+        working-directory: ./flutter_app
+
+      - name: Upload app bundle
+        uses: actions/upload-artifact@v1
+        with:
+          name: appbundle
+          path: flutter_app/build/app/outputs/bundle/release/app-release.aab
+
+  deploy-android:
+    name: Deploy Android
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: build-android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Download app bundle artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: appbundle
+
+      - name: Move app bundle to build output diretory
+        run: |
+          mkdir -p flutter_app/build/app/outputs/bundle/release
+          mv appbundle/app-release.aab flutter_app/build/app/outputs/bundle/release/app-release.aab
+
+      - name: Set up secret files
+        working-directory: ./flutter_app/android
+        env:
+          ANDROID_UPLOAD_KEY: ${{ secrets.ANDROID_UPLOAD_KEY }}
+        run: |
+          echo "$ANDROID_UPLOAD_KEY" | base64 --decode > upload-key.json
+
+      - name: Deploy to Play Store internal track
+        uses: maierj/fastlane-action@v0.10.0
+        with:
+          lane: deploy
+          subdirectory: flutter_app/android
+
+  build-ios:
+    name: Build iOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ./flutter_app
+
+      - name: Set up secret files
+        working-directory: ./flutter_app/ios
+        env:
+          IOS_GOOGLE_MAPS_API_KEY: ${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}
+        run: |
+          echo "$IOS_GOOGLE_MAPS_API_KEY" | base64 --decode > Runner/GoogleMapsKey.swift
+
+      - name: Build Flutter app
+        run: flutter build ios --build-number $((`git rev-list --count master` + 45)) --no-codesign
+        working-directory: ./flutter_app
+
+      - name: Workaround for getting fastlane match authenticated
+        run: git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+
+      - name: Build with code signing
+        uses: maierj/fastlane-action@v0.10.0
+        with:
+          lane: build
+          subdirectory: flutter_app/ios
+        env:
+          MATCH_GIT_PAT: ${{ secrets.MATCH_GIT_PAT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Upload Runner.ipa
+        uses: actions/upload-artifact@v1
+        with:
+          name: runner-ipa
+          path: flutter_app/ios/Runner.ipa
+
+  deploy-ios:
+    name: Deploy iOS
+    if: github.ref == 'refs/heads/master'
+    runs-on: macos-latest
+    needs: build-ios
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Download app bundle artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: runner-ipa
+
+      - name: Move Runner.ipa to the ios directory
+        run: |
+          mv runner-ipa/Runner.ipa flutter_app/ios/
+
+      - name: Deploy to TestFlight
+        uses: maierj/fastlane-action@v0.10.0
+        with:
+          lane: beta
+          subdirectory: flutter_app/ios
+        env:
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
