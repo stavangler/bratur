@@ -1,0 +1,5 @@
+= Bratur
+
+The _Bratur_ is an open source project by *_Knowit Stavanger_*
+
+Documentation in https://asciidoctor.org[Asciidoctor] format.
