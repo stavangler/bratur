@@ -1,0 +1,6 @@
+[*]
+indent_size=2
+indent_style=space
+wildcard_import_limit=99
+insert_final_newline=true
+disabled_rules=import-ordering

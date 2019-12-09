@@ -1,0 +1,6 @@
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:postgresql://localhost:5432/app
+    username: app_rw
+    password: app_rw

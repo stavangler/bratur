@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: bratur-backend
+  profiles:
+    active: development
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    net.stavangler: DEBUG
+    org.springframework.web.servlet: WARN
+    Exposed: WARN
+    kafka: WARN
+    org.apache.zookeeper: WARN
+    org.apache.kafka: WARN
+    org.springframework.kafka: WARN
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+      vm: devnovm
+      vmhost: devnovmhost

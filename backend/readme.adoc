@@ -1,0 +1,19 @@
+= Bratur Backend
+
+Exploring backend options for Bratur.
+
+Testing;
+
+* Spring Boot
+** Actuator - Metrics, health status
+** WebFlux - Async web
+** RSocket
+** JDBC
+*** Postgresql
+** Kafka
+** JUnit
+*** Kotlin Test for JUnit - Annotations
+*** Kluent - Fluent Assertion-Library for Kotlin
+*** Mockk - mocking library for Kotlin
+
+*
