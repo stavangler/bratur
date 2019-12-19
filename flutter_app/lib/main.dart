@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
               TargetPlatform.android: ZoomPageTransitionsBuilder(),
             },
           ),
+          snackBarTheme: SnackBarThemeData(behavior: SnackBarBehavior.floating),
         ),
         home: HomePageContainer(),
       ),
