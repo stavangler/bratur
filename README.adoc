@@ -3,3 +3,6 @@
 The _Bratur_ is an open source project by *_Knowit Stavanger_*
 
 Documentation in https://asciidoctor.org[Asciidoctor] format.
+
+[link=https://github.com/stavangler/bratur/actions]
+image::https://github.com/stavangler/bratur/workflows/Build%20and%20deploy%20Flutter%20app/badge.svg[Flutter build badge]

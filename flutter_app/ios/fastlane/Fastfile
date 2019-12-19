@@ -1,0 +1,60 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build a signed build"
+  lane :build do
+    if is_ci?
+      create_keychain(
+        name: "keychain",
+        password: "keychain_password",
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+      )
+      match(
+        keychain_name: "keychain",
+        keychain_password: "keychain_password",
+        type: "appstore",
+        readonly: true
+      )
+    else
+      match(type: "appstore", readonly: is_ci)
+    end
+
+    build_app(workspace: "Runner.xcworkspace",
+              scheme: "Runner",
+              export_method: "app-store")
+  end
+
+  private_lane :reset_pass do
+    ENV['FASTLANE_USER'] = nil
+    ENV['FASTLANE_PASSWORD'] = nil
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    reset_pass
+    upload_to_testflight(
+      username: 'johan.reitan@gmail.com',
+      app_identifier: 'no.knowit.bratur',
+      apple_id: '1489094186',
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
