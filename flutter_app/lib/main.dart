@@ -1,4 +1,5 @@
 import 'package:bratur/features/home_page/container.dart';
+import 'package:bratur/features/map_page/middleware.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/redux/reducer.dart';
 import 'package:bratur/redux/state.dart';
@@ -9,7 +10,11 @@ import 'package:redux/redux.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final store = Store<AppState>(appReducer, initialState: AppState.initial());
+  final store = Store<AppState>(
+    appReducer,
+    initialState: AppState.initial(),
+    middleware: [startSharingLocationMiddleware],
+  );
 
   @override
   Widget build(BuildContext context) {

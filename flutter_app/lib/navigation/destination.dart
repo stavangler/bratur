@@ -1,6 +1,6 @@
 import 'package:bratur/features/agenda/container.dart';
 import 'package:bratur/features/info_page/presentation.dart';
-import 'package:bratur/features/map_page/presentation.dart';
+import 'package:bratur/features/map_page/container.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +33,6 @@ final List<Destination> allDestinations = <Destination>[
     AgendaContainer(navigatorState: _agendaNavigatorKey),
     navigatorKey: _agendaNavigatorKey,
   ),
-  Destination(1, 'Map', Icons.map, KnowitColors.flamingo, MapPage()),
+  Destination(1, 'Map', Icons.map, KnowitColors.flamingo, MapContainer()),
   Destination(2, 'Info', Icons.info, KnowitColors.mint, InfoPage()),
 ];

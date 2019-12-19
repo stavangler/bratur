@@ -14,6 +14,7 @@ dependencies:
   flutter_redux: ^0.6.0
   google_maps_flutter: ^0.5.21+15
   cloud_firestore: ^0.13.0+1
+  background_location: ^0.0.9+1
 
   # TODO: obviously only while developing
   faker: ^1.1.1
