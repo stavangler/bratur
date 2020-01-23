@@ -118,10 +118,10 @@ jobs:
         run: git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
       - name: Build with code signing
-        uses: maierj/fastlane-action@v0.10.0
+        uses: maierj/fastlane-action@v1.2.0
         with:
-          lane: build
-          subdirectory: flutter_app/ios
+          lane: 'build'
+          subdirectory: 'flutter_app/ios'
         env:
           MATCH_GIT_PAT: ${{ secrets.MATCH_GIT_PAT }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
