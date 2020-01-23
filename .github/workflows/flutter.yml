@@ -2,7 +2,7 @@ name: Build and deploy Flutter app
 on:
   push:
     paths:
-      - 'flutter_app/*'
+      - 'flutter_app/**'
       - '.github/workflows/flutter.yml'
 
 env:
