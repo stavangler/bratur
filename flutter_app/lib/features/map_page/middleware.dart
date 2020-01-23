@@ -6,25 +6,33 @@ import 'package:redux/redux.dart';
 
 void startSharingLocationMiddleware(
     Store<AppState> store, action, NextDispatcher next) {
-  if (action is StartSharingLocationAction) {
-    final document = Firestore.instance
-        .collection('trips')
-        .document(store.state.tripId)
-        .collection('people')
-        .document(store.state.userId);
-    document.setData({'name': store.state.userName});
+  final document = Firestore.instance
+      .collection('trips')
+      .document(store.state.tripId)
+      .collection('people')
+      .document(store.state.userId);
 
-    BackgroundLocation.getLocationUpdates((location) {
-      document.updateData(
-        {
-          'currentLocation': {
-            'latitude': location.latitude,
-            'longitude': location.longitude,
-          }
-        },
-      );
+  if (action is StartSharingLocationAction) {
+    BackgroundLocation.getPermissions(onGranted: () {
+      BackgroundLocation.getLocationUpdates((location) {
+        document.setData(
+          {
+            'name': store.state.userName,
+            'currentLocation': {
+              'latitude': location.latitude,
+              'longitude': location.longitude,
+              'latestUpdate': Timestamp.now(),
+            }
+          },
+          merge: true,
+        );
+      });
+      BackgroundLocation.startLocationService();
     });
-    BackgroundLocation.startLocationService();
+  } else if (action is StopSharingLocationAction) {
+    BackgroundLocation.stopLocationService();
+
+    document.setData({'currentLocation': FieldValue.delete()}, merge: true);
   }
 
   next(action);

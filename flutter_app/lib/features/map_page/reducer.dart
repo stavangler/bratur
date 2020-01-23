@@ -5,5 +5,8 @@ import 'package:redux/redux.dart';
 final mapReducer = combineReducers<MapState>([
   TypedReducer<MapState, StartSharingLocationAction>((state, action) {
     return state.copyWith(isSharingLocation: true);
+  }),
+  TypedReducer<MapState, StopSharingLocationAction>((state, action) {
+    return state.copyWith(isSharingLocation: false);
   })
 ]);

@@ -34,8 +34,10 @@ class _ViewModel {
 
   static _ViewModel fromStore(Store<AppState> store) => _ViewModel(
         isSharingLocation: store.state.mapState.isSharingLocation,
-        onShareLocationTapped: () =>
-            store.dispatch(StartSharingLocationAction()),
+        onShareLocationTapped: () => store.dispatch(
+            store.state.mapState.isSharingLocation
+                ? StopSharingLocationAction()
+                : StartSharingLocationAction()),
         tripId: store.state.tripId,
       );
 }

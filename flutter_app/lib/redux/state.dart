@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class AppState {
   final int menuItem;
   final tripId = 'y0YhKJG9lMAVbgECzSaN';
-  final userId = RandomGenerator().string(20, min: 20);
+  final userId = RandomGenerator().string(20, min: 20).replaceAll('/', '_');
   final userName = Faker().person.name();
   final AgendaState agendaState;
   final MapState mapState;

@@ -4,3 +4,10 @@ class StartSharingLocationAction {
     return 'StartSharingLocationAction{}';
   }
 }
+
+class StopSharingLocationAction {
+  @override
+  String toString() {
+    return 'StopSharingLocationAction{}';
+  }
+}

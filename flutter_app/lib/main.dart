@@ -28,6 +28,11 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: KnowitColors.white,
           canvasColor: KnowitColors.white,
           accentColor: KnowitColors.lollipop,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: KnowitColors.black,
+                displayColor: KnowitColors.black,
+              ),
+          buttonColor: KnowitColors.flamingo,
           fontFamily: 'Arial',
           pageTransitionsTheme: PageTransitionsTheme(
             builders: {
