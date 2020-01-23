@@ -6,7 +6,7 @@ on:
       - '.github/workflows/flutter.yml'
 
 env:
-  FLUTTER_CHANNEL: 'dev'
+  FLUTTER_CHANNEL: 'beta'
 
 jobs:
   build-android:
