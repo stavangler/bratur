@@ -44,7 +44,7 @@ jobs:
           echo "$ANDROID_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > app/google-services.json
 
       - name: Build
-        run: flutter build appbundle --build-number $((`git rev-list --count master` + 45))
+        run: flutter build appbundle --build-number $((`git rev-list --count origin/master` + 45))
         working-directory: ./flutter_app
 
       - name: Upload app bundle
@@ -111,7 +111,7 @@ jobs:
           echo "$IOS_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > Runner/GoogleService-Info.plist
 
       - name: Build Flutter app
-        run: flutter build ios --build-number $((`git rev-list --count master` + 45)) --no-codesign
+        run: flutter build ios --build-number $((`git rev-list --count origin/master` + 45)) --no-codesign
         working-directory: ./flutter_app
 
       - name: Workaround for getting fastlane match authenticated
