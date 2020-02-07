@@ -80,7 +80,7 @@ jobs:
           echo "$ANDROID_UPLOAD_KEY" | base64 --decode > upload-key.json
 
       - name: Deploy to Play Store internal track
-        uses: maierj/fastlane-action@v0.10.0
+        uses: maierj/fastlane-action@v1.4.0
         with:
           lane: deploy
           subdirectory: flutter_app/android
@@ -151,7 +151,7 @@ jobs:
           mv runner-ipa/Runner.ipa flutter_app/ios/
 
       - name: Deploy to TestFlight
-        uses: maierj/fastlane-action@v0.10.0
+        uses: maierj/fastlane-action@v1.4.0
         with:
           lane: beta
           subdirectory: flutter_app/ios
