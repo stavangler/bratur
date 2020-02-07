@@ -2,11 +2,11 @@ name: Build and deploy Flutter app
 on:
   push:
     paths:
-      - 'flutter_app/*'
+      - 'flutter_app/**'
       - '.github/workflows/flutter.yml'
 
 env:
-  FLUTTER_CHANNEL: 'dev'
+  FLUTTER_CHANNEL: 'beta'
 
 jobs:
   build-android:
@@ -36,10 +36,12 @@ jobs:
           ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
           ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
           ANDROID_GOOGLE_MAPS_API_KEY: ${{ secrets.ANDROID_GOOGLE_MAPS_API_KEY }}
+          ANDROID_GOOGLE_SERVICES_CREDENTIALS: ${{ secrets.ANDROID_GOOGLE_SERVICES_CREDENTIALS }}
         run: |
           echo "$ANDROID_SIGNING_KEY" | base64 --decode > key.jks
           echo "$ANDROID_KEY_PROPERTIES" | base64 --decode > key.properties
           echo "$ANDROID_GOOGLE_MAPS_API_KEY" | base64 --decode > app/src/main/res/values/google_maps_api_key.xml
+          echo "$ANDROID_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > app/google-services.json
 
       - name: Build
         run: flutter build appbundle --build-number $((`git rev-list --count master` + 45))
@@ -103,8 +105,10 @@ jobs:
         working-directory: ./flutter_app/ios
         env:
           IOS_GOOGLE_MAPS_API_KEY: ${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}
+          IOS_GOOGLE_SERVICES_CREDENTIALS: ${{ secrets.IOS_GOOGLE_SERVICES_CREDENTIALS }}
         run: |
           echo "$IOS_GOOGLE_MAPS_API_KEY" | base64 --decode > Runner/GoogleMapsKey.swift
+          echo "$IOS_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > Runner/GoogleService-Info.plist
 
       - name: Build Flutter app
         run: flutter build ios --build-number $((`git rev-list --count master` + 45)) --no-codesign
@@ -114,10 +118,10 @@ jobs:
         run: git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
       - name: Build with code signing
-        uses: maierj/fastlane-action@v0.10.0
+        uses: maierj/fastlane-action@v1.2.0
         with:
-          lane: build
-          subdirectory: flutter_app/ios
+          lane: 'build'
+          subdirectory: 'flutter_app/ios'
         env:
           MATCH_GIT_PAT: ${{ secrets.MATCH_GIT_PAT }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

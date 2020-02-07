@@ -32,4 +32,5 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 
 /Runner/GoogleMapsKey.swift
+/Runner/GoogleService-Info.plist
 /fastlane/report.xml
