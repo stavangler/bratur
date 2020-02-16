@@ -1,4 +1,5 @@
 import 'package:bratur/features/agenda/state.dart';
+import 'package:bratur/features/login/state.dart';
 import 'package:bratur/features/map_page/state.dart';
 import 'package:faker/faker.dart';
 import 'package:meta/meta.dart';
@@ -9,17 +10,20 @@ class AppState {
   final tripId = 'y0YhKJG9lMAVbgECzSaN';
   final userId = RandomGenerator().string(20, min: 20).replaceAll('/', '_');
   final userName = Faker().person.name();
+  final LoginState loginState;
   final AgendaState agendaState;
   final MapState mapState;
 
   AppState({
     @required this.menuItem,
+    @required this.loginState,
     @required this.agendaState,
     @required this.mapState,
   });
 
   factory AppState.initial() => AppState(
         menuItem: 0,
+        loginState: LoginState.initial(),
         agendaState: AgendaState.initial(),
         mapState: MapState.initial(),
       );
@@ -29,6 +33,7 @@ class AppState {
   }) {
     return AppState(
       menuItem: menuItem ?? this.menuItem,
+      loginState: this.loginState,
       agendaState: this.agendaState,
       mapState: this.mapState,
     );
@@ -37,13 +42,14 @@ class AppState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppState &&
-          runtimeType == other.runtimeType &&
-          menuItem == other.menuItem &&
-          agendaState == other.agendaState &&
-          mapState == other.mapState;
+          other is AppState && runtimeType == other.runtimeType &&
+              menuItem == other.menuItem && loginState == other.loginState &&
+              agendaState == other.agendaState && mapState == other.mapState;
 
   @override
   int get hashCode =>
-      menuItem.hashCode ^ agendaState.hashCode ^ mapState.hashCode;
+      menuItem.hashCode ^ loginState.hashCode ^ agendaState.hashCode ^ mapState
+          .hashCode;
+
+
 }

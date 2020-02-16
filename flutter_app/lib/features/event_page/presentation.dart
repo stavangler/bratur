@@ -17,8 +17,8 @@ class EventPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(event.title, style: Theme.of(context).textTheme.title),
-            Text(event.location, style: Theme.of(context).textTheme.subtitle),
+            Text(event.title, style: Theme.of(context).textTheme.headline6),
+            Text(event.location, style: Theme.of(context).textTheme.subtitle2),
             Wrap(
               children: [...event.categories.map((category) => Text(category))],
             )
