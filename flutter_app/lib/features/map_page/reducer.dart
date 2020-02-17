@@ -8,5 +8,17 @@ final mapReducer = combineReducers<MapState>([
   }),
   TypedReducer<MapState, StopSharingLocationAction>((state, action) {
     return state.copyWith(isSharingLocation: false);
-  })
+  }),
+  TypedReducer<MapState, GotUsers>((state, action) {
+    return state.copyWith(users: action.users);
+  }),
+  (state, action) {
+    if (action is ErrorGettingUsers) {
+      return state.copyWith(errorGettingUsers: true);
+    } else if (!(action is ErrorGettingUsers) && state.errorGettingUsers) {
+      return state.copyWith(errorGettingUsers: false);
+    } else {
+      return state;
+    }
+  },
 ]);

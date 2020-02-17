@@ -4,6 +4,7 @@ import 'package:bratur/features/map_page/middleware.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/redux/reducer.dart';
 import 'package:bratur/redux/state.dart';
+import 'package:bratur/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     initialState: AppState.initial(),
     middleware: [
       thunkMiddleware,
-      startSharingLocationMiddleware,
+      ...createMapMiddleware(new FirestoreRepository()),
       new LoggingMiddleware.printer(),
     ],
   );
