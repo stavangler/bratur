@@ -10,14 +10,15 @@ void startSharingLocationMiddleware(
       .collection('trips')
       .document(store.state.tripId)
       .collection('people')
-      .document(store.state.userId);
+      .document(store.state.loginState.loggedInUser.uid);
 
   if (action is StartSharingLocationAction) {
     BackgroundLocation.getPermissions(onGranted: () {
       BackgroundLocation.getLocationUpdates((location) {
         document.setData(
           {
-            'name': store.state.userName,
+            'name': store.state.loginState.loggedInUser.displayName,
+            'photoUrl': store.state.loginState.loggedInUser.photoUrl,
             'currentLocation': {
               'latitude': location.latitude,
               'longitude': location.longitude,
@@ -32,7 +33,7 @@ void startSharingLocationMiddleware(
   } else if (action is StopSharingLocationAction) {
     BackgroundLocation.stopLocationService();
 
-    document.setData({'currentLocation': FieldValue.delete()}, merge: true);
+    document.updateData({'currentLocation': FieldValue.delete()});
   }
 
   next(action);
