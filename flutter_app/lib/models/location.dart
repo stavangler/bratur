@@ -1,20 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class Location {
-  final double latitude;
-  final double longitude;
+part 'location.freezed.dart';
 
-  Location(this.latitude, this.longitude);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Location &&
-          runtimeType == other.runtimeType &&
-          latitude == other.latitude &&
-          longitude == other.longitude;
-
-  @override
-  int get hashCode => latitude.hashCode ^ longitude.hashCode;
+@freezed
+abstract class Location with _$Location {
+  const factory Location(double latitude, double longitude) = _Location;
 }

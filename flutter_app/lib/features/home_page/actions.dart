@@ -1,9 +1,10 @@
-class SelectMenuItemAction {
-  final int selectedMenuItem;
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  SelectMenuItemAction(this.selectedMenuItem);
+part 'actions.freezed.dart';
 
-  @override
-  String toString() =>
-      'SelectMenuItemAction{selectedMenuItem: $selectedMenuItem}';
+@freezed
+abstract class SelectMenuItemAction with _$SelectMenuItemAction {
+  const factory SelectMenuItemAction(int selectedMenuItem) =
+      _SelectMenuItemAction;
 }

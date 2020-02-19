@@ -1,16 +1,16 @@
 import 'package:bratur/models/event.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class AgendaState {
-  final List<Event> events;
+part 'state.freezed.dart';
 
-  AgendaState._({this.events});
+@freezed
+abstract class AgendaState with _$AgendaState {
+  const factory AgendaState({@required List<Event> events}) = _AgendaState;
 
   factory AgendaState.initial() {
-    const faker = Faker();
-    return AgendaState._(
+    return AgendaState(
       events: List.generate(
         10,
         (index) => Event(
@@ -24,14 +24,4 @@ class AgendaState {
       ),
     );
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AgendaState &&
-          runtimeType == other.runtimeType &&
-          events == other.events;
-
-  @override
-  int get hashCode => events.hashCode;
 }

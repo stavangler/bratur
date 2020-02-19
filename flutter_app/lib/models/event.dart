@@ -1,25 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class Event {
-  final String time;
-  final String title;
-  final String location;
-  final List<String> categories;
+part 'event.freezed.dart';
 
-  Event(this.time, this.title, this.location, this.categories);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Event &&
-          runtimeType == other.runtimeType &&
-          time == other.time &&
-          title == other.title &&
-          location == other.location &&
-          categories == other.categories;
-
-  @override
-  int get hashCode =>
-      time.hashCode ^ title.hashCode ^ location.hashCode ^ categories.hashCode;
+@freezed
+abstract class Event with _$Event {
+  const factory Event(
+    String time,
+    String title,
+    String location,
+    List<String> categories,
+  ) = _Event;
 }
