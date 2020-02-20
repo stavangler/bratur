@@ -1,11 +1,15 @@
 import 'package:bratur/features/home_page/container.dart';
+import 'package:bratur/features/login/container.dart';
 import 'package:bratur/features/map_page/middleware.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/redux/reducer.dart';
 import 'package:bratur/redux/state.dart';
+import 'package:bratur/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_logging/redux_logging.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +17,11 @@ class MyApp extends StatelessWidget {
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.initial(),
-    middleware: [startSharingLocationMiddleware],
+    middleware: [
+      thunkMiddleware,
+      ...createMapMiddleware(new FirestoreRepository()),
+      new LoggingMiddleware.printer(),
+    ],
   );
 
   @override
@@ -24,6 +32,7 @@ class MyApp extends StatelessWidget {
         title: 'Bratur',
         theme: ThemeData(
           primaryColor: KnowitColors.white,
+          primaryColorBrightness: Brightness.light,
           backgroundColor: KnowitColors.white,
           scaffoldBackgroundColor: KnowitColors.white,
           canvasColor: KnowitColors.white,
@@ -42,6 +51,9 @@ class MyApp extends StatelessWidget {
           ),
           snackBarTheme: SnackBarThemeData(behavior: SnackBarBehavior.floating),
         ),
+        routes: {
+          '/login': (context) => LoginContainer(),
+        },
         home: HomePageContainer(),
       ),
     );

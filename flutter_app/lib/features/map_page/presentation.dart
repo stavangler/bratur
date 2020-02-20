@@ -1,10 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bratur/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatelessWidget {
   final bool isSharingLocation;
   final Function onShareLocationTapped;
+  final List<User> users;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   final _initialPosition = CameraPosition(
     target: LatLng(58.9177924, 5.7020611),
@@ -16,47 +18,30 @@ class MapPage extends StatelessWidget {
     @required this.isSharingLocation,
     @required this.onShareLocationTapped,
     @required this.tripId,
+    @required this.users,
+    @required this.scaffoldKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(
-        builder: (context) {
-          return StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection('trips')
-                  .document(tripId)
-                  .collection('people')
-                  .where('currentLocation.latestUpdate',
-                      isGreaterThan: Timestamp.fromDate(
-                          DateTime.now().subtract(Duration(minutes: 15))))
-                  .snapshots()
-                  .handleError(() {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('Failed to find any people 🦗️'),
-                ));
-              }),
-              builder: (context, snapshot) {
-                return GoogleMap(
-                  initialCameraPosition: _initialPosition,
-                  myLocationButtonEnabled: false,
-                  myLocationEnabled: true,
-                  markers: snapshot.data?.documents?.map(
-                    (person) {
-                      return Marker(
-                        markerId: MarkerId(person.documentID),
-                        position: LatLng(
-                          person.data['currentLocation']['latitude'],
-                          person.data['currentLocation']['longitude'],
-                        ),
-                        infoWindow: InfoWindow(title: person.data['name']),
-                      );
-                    },
-                  )?.toSet(),
-                );
-              });
-        },
+      key: scaffoldKey,
+      body: GoogleMap(
+        initialCameraPosition: _initialPosition,
+        myLocationButtonEnabled: false,
+        myLocationEnabled: true,
+        markers: users.map(
+          (user) {
+            return Marker(
+              markerId: MarkerId(user.userId),
+              position: LatLng(
+                user.currentLocation.latitude,
+                user.currentLocation.longitude,
+              ),
+              infoWindow: InfoWindow(title: user.name),
+            );
+          },
+        )?.toSet(),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => onShareLocationTapped(),

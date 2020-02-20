@@ -11,13 +11,18 @@ dependencies:
     sdk: flutter
 
   redux: ^4.0.0
+  redux_logging: ^0.4.0
+  redux_thunk: ^0.3.0
   flutter_redux: ^0.6.0
-  google_maps_flutter: ^0.5.21+15
-  cloud_firestore: ^0.13.0+1
-  background_location: ^0.0.9+1
+  google_maps_flutter: ^0.5.23+1
+  cloud_firestore: ^0.13.2+1
+  background_location: ^0.0.9+2
+  firebase_auth: ^0.15.4
+  google_sign_in: ^4.1.1
+  flutter_svg: ^0.17.1
 
   # TODO: obviously only while developing
-  faker: ^1.1.1
+  faker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +37,8 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/Rocket-Digital-black.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
