@@ -1,4 +1,8 @@
 import 'package:bratur/models/user.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'actions.freezed.dart';
 
 class StartSharingLocationAction {
   @override
@@ -21,15 +25,9 @@ class ConnectToUsersInMapAction {
   }
 }
 
-class GotUsers {
-  final List<User> users;
-
-  GotUsers(this.users);
-
-  @override
-  String toString() {
-    return 'GotUsers{users: $users}';
-  }
+@freezed
+abstract class GotUsers with _$GotUsers {
+  const factory GotUsers(List<User> users) = _GotUsers;
 }
 
 class ErrorGettingUsers {

@@ -1,0 +1,18 @@
+= Bratur Mobile App
+
+Get your business trips organized today!
+
+== Getting Started
+
+This project is using https://https://pub.dev/packages/build_runner[`build_runner`] for code generation. To watch for file changes and generate code automatically while developing, run:
+[source, bash]
+----
+flutter pub pub run build_runner watch
+----
+
+Otherwise, to generate once, run:
+
+[source, bash]
+----
+flutter pub pub run build_runner build
+----

@@ -1,22 +1,22 @@
 import 'package:bratur/features/agenda/state.dart';
 import 'package:bratur/features/login/state.dart';
 import 'package:bratur/features/map_page/state.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class AppState {
-  final int menuItem;
-  final tripId = 'y0YhKJG9lMAVbgECzSaN';
-  final LoginState loginState;
-  final AgendaState agendaState;
-  final MapState mapState;
+part 'state.freezed.dart';
 
-  AppState({
-    @required this.menuItem,
-    @required this.loginState,
-    @required this.agendaState,
-    @required this.mapState,
-  });
+@freezed
+abstract class AppState with _$AppState {
+  @late
+  String get tripId => 'y0YhKJG9lMAVbgECzSaN';
+
+  factory AppState({
+    @required int menuItem,
+    @required LoginState loginState,
+    @required AgendaState agendaState,
+    @required MapState mapState,
+  }) = _AppState;
 
   factory AppState.initial() => AppState(
         menuItem: 0,
@@ -24,32 +24,4 @@ class AppState {
         agendaState: AgendaState.initial(),
         mapState: MapState.initial(),
       );
-
-  AppState copyWith({
-    int menuItem,
-  }) {
-    return AppState(
-      menuItem: menuItem ?? this.menuItem,
-      loginState: this.loginState,
-      agendaState: this.agendaState,
-      mapState: this.mapState,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AppState &&
-          runtimeType == other.runtimeType &&
-          menuItem == other.menuItem &&
-          loginState == other.loginState &&
-          agendaState == other.agendaState &&
-          mapState == other.mapState;
-
-  @override
-  int get hashCode =>
-      menuItem.hashCode ^
-      loginState.hashCode ^
-      agendaState.hashCode ^
-      mapState.hashCode;
 }

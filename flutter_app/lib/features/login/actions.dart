@@ -1,8 +1,11 @@
 import 'package:bratur/redux/state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:redux/redux.dart';
+
+part 'actions.freezed.dart';
 
 final _googleSignIn = GoogleSignIn();
 final _auth = FirebaseAuth.instance;
@@ -37,15 +40,9 @@ void doLogin(Store<AppState> store) async {
   });
 }
 
-class InitialUserAction {
-  final FirebaseUser user;
-
-  InitialUserAction(this.user);
-
-  @override
-  String toString() {
-    return 'InitialUserAction{user: $user}';
-  }
+@freezed
+abstract class InitialUserAction with _$InitialUserAction {
+  const factory InitialUserAction(FirebaseUser user) = _InitialUserAction;
 }
 
 class LoginStarted {
@@ -62,13 +59,7 @@ class LoginFailed {
   }
 }
 
-class LoggedIn {
-  final FirebaseUser user;
-
-  LoggedIn(this.user);
-
-  @override
-  String toString() {
-    return 'LoggedIn{}';
-  }
+@freezed
+abstract class LoggedIn with _$LoggedIn {
+  const factory LoggedIn(FirebaseUser user) = _LoggedIn;
 }

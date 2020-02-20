@@ -1,21 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class LoginState {
-  final FirebaseUser loggedInUser;
-  final bool loading;
+part 'state.freezed.dart';
 
-  LoginState._({this.loggedInUser, this.loading});
+@freezed
+abstract class LoginState with _$LoginState {
+  const factory LoginState(
+    @nullable FirebaseUser loggedInUser,
+    bool loading,
+  ) = _LoginState;
 
-  factory LoginState.initial() {
-    return LoginState._(loggedInUser: null, loading: true);
-  }
-
-  LoginState copyWith({FirebaseUser loggedInUser, bool loading}) {
-    return LoginState._(
-      loggedInUser: loggedInUser ?? this.loggedInUser,
-      loading: loading ?? this.loading,
-    );
-  }
+  factory LoginState.initial() => LoginState(null, true);
 }
