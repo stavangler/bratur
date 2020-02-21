@@ -20,7 +20,7 @@ class EventPage extends StatelessWidget {
             Text(event.title, style: Theme.of(context).textTheme.headline6),
             Text(event.location, style: Theme.of(context).textTheme.subtitle2),
             Wrap(
-              children: [...event.categories.map((category) => Text(category))],
+              children: [...event.topics.map((category) => Text(category))],
             )
           ],
         ),

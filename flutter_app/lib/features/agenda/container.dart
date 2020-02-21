@@ -1,3 +1,4 @@
+import 'package:bratur/features/agenda/actions.dart';
 import 'package:bratur/features/agenda/presentation.dart';
 import 'package:bratur/models/event.dart';
 import 'package:bratur/redux/state.dart';
@@ -6,20 +7,13 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 class AgendaContainer extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorState;
-
-  const AgendaContainer({
-    Key key,
-    @required this.navigatorState,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
+      onInit: (store) => store.dispatch(ConnectToAgendaEventsAction()),
       builder: (context, vm) => AgendaPage(
         events: vm.events,
-        navigatorState: navigatorState,
       ),
     );
   }

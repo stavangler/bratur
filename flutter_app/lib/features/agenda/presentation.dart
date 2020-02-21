@@ -1,46 +1,18 @@
-import 'package:bratur/features/event_page/presentation.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/models/event.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AgendaPage extends StatelessWidget {
   final List<Event> events;
-  final GlobalKey<NavigatorState> navigatorState;
 
   const AgendaPage({
     Key key,
     @required this.events,
-    @required this.navigatorState,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return buildNavigator();
-  }
-
-  Widget buildNavigator() {
-    return Navigator(
-      key: navigatorState,
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (context) {
-            switch (settings.name) {
-              case '/':
-                return buildAgenda();
-              case '/event':
-                return settings.arguments is Event
-                    ? EventPage(event: settings.arguments)
-                    : buildAgenda();
-            }
-            return buildAgenda();
-          },
-        );
-      },
-    );
-  }
-
-  Widget buildAgenda() {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -56,7 +28,7 @@ class AgendaPage extends StatelessWidget {
             (context, index) {
               return ListTile(
                 leading: Text(
-                  events[index].time,
+                  DateFormat.jm().format(events[index].startTime),
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -81,7 +53,10 @@ class AgendaPage extends StatelessWidget {
                     Wrap(
                       children: [
                         Padding(padding: EdgeInsets.only(left: 2)),
-                        ...events[index].categories.expand(
+                        ...[
+                          events[index].track,
+                          ...events[index].topics,
+                        ].expand(
                           (category) {
                             return [
                               Container(

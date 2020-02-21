@@ -1,3 +1,4 @@
+import 'package:bratur/models/event.dart';
 import 'package:bratur/models/location.dart';
 import 'package:bratur/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,19 +47,46 @@ class FirestoreRepository {
                 DateTime.now().subtract(Duration(minutes: 15))))
         .snapshots()
         .map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => User(
-                  doc.documentID,
-                  doc['name'],
-                  doc['photoUrl'],
-                  Location(
-                    doc['currentLocation']['latitude'],
-                    doc['currentLocation']['longitude'],
-                  ),
-                ),
-              )
-              .toList(),
+          (snapshot) => snapshot.documents.map(_mapDocumentToUser).toList(),
         );
   }
+
+  Stream<List<Event>> agendaEvents(String tripId) {
+    return Firestore.instance
+        .collection('trips')
+        .document(tripId)
+        .collection('agenda')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.documents.map((doc) {
+        try {
+          return Event(
+            doc['title'],
+            doc['description'],
+            doc['startTime'].toDate(),
+            doc['duration'],
+            doc['location'],
+            doc['track'],
+            doc['topics'].cast<String>(),
+//          doc['speakers'].map((DocumentReference ref) {
+//            return ref.get().then(_mapDocumentToUser);
+//          }),
+            [],
+          );
+        } catch (e) {
+          return null;
+        }
+      }).toList();
+    });
+  }
+
+  User _mapDocumentToUser(doc) => User(
+        doc.documentID,
+        doc['name'],
+        doc['photoUrl'],
+        Location(
+          doc['currentLocation']['latitude'],
+          doc['currentLocation']['longitude'],
+        ),
+      );
 }
