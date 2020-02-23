@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     initialState: AppState.initial(),
     middleware: [
       thunkMiddleware,
-      createAgendaMiddleware(firestoreRepository),
+      ...createAgendaMiddleware(firestoreRepository),
       ...createMapMiddleware(firestoreRepository),
       new LoggingMiddleware.printer(),
     ],

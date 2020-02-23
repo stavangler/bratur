@@ -54,6 +54,17 @@ class FirestoreRepository {
     );
   }
 
+  Future<void> toggleStarredEvent(
+    String tripId,
+    String userId,
+    String eventId,
+    bool starred,
+  ) {
+    final document =
+        _userRef(tripId, userId).collection('stars').document(eventId);
+    return starred ? document.setData({}) : document.delete();
+  }
+
   Future<void> deleteCurrentLocation(String tripId, String userId) {
     return _userRef(tripId, userId)
         .updateData({'currentLocation': FieldValue.delete()});
@@ -83,6 +94,7 @@ class FirestoreRepository {
       return snapshot.documents.map((doc) {
         try {
           return Event(
+            doc.documentID,
             doc['title'],
             doc['description'],
             doc['startTime'].toDate(),
@@ -100,6 +112,14 @@ class FirestoreRepository {
         }
       }).toList();
     });
+  }
+
+  Stream<List<String>> starredEvents(String tripId, String userId) {
+    return _userRef(tripId, userId).collection('stars').snapshots().map(
+          (snapshot) => snapshot.documents
+              .map((doc) => doc.reference.documentID)
+              .toList(),
+        );
   }
 
   User _mapDocumentToUser(doc) => User(

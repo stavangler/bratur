@@ -7,6 +7,7 @@ part 'event.freezed.dart';
 @freezed
 abstract class Event with _$Event {
   const factory Event(
+    String id,
     String title,
     String description,
     DateTime startTime,

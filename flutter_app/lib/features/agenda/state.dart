@@ -6,11 +6,12 @@ part 'state.freezed.dart';
 
 @freezed
 abstract class AgendaState with _$AgendaState {
-  const factory AgendaState({@required List<Event> events}) = _AgendaState;
+  const factory AgendaState(
+    List<Event> events,
+    List<String> starredEvents,
+  ) = _AgendaState;
 
   factory AgendaState.initial() {
-    return AgendaState(
-      events: [],
-    );
+    return AgendaState([], []);
   }
 }

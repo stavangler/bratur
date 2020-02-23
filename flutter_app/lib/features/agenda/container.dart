@@ -14,6 +14,8 @@ class AgendaContainer extends StatelessWidget {
       onInit: (store) => store.dispatch(ConnectToAgendaEventsAction()),
       builder: (context, vm) => AgendaPage(
         events: vm.events,
+        starredEvents: vm.starredEvents,
+        toggleStarredEvent: vm.toggleStarredEvent,
       ),
     );
   }
@@ -21,9 +23,18 @@ class AgendaContainer extends StatelessWidget {
 
 class _ViewModel {
   final List<Event> events;
+  final List<String> starredEvents;
+  final Function(String eventId, bool starred) toggleStarredEvent;
 
-  _ViewModel({@required this.events});
+  _ViewModel({
+    @required this.events,
+    @required this.starredEvents,
+    @required this.toggleStarredEvent,
+  });
 
-  static _ViewModel fromStore(Store<AppState> store) =>
-      _ViewModel(events: store.state.agendaState.events);
+  static _ViewModel fromStore(Store<AppState> store) => _ViewModel(
+      events: store.state.agendaState.events,
+      starredEvents: store.state.agendaState.starredEvents,
+      toggleStarredEvent: (eventId, starred) =>
+          store.dispatch(ToggleStarredEventAction(eventId, starred)));
 }

@@ -5,10 +5,14 @@ import 'package:intl/intl.dart';
 
 class AgendaPage extends StatelessWidget {
   final List<Event> events;
+  final List<String> starredEvents;
+  final Function(String eventId, bool starred) toggleStarredEvent;
 
   const AgendaPage({
     Key key,
     @required this.events,
+    @required this.starredEvents,
+    @required this.toggleStarredEvent,
   }) : super(key: key);
 
   @override
@@ -26,6 +30,8 @@ class AgendaPage extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
+              final starred = starredEvents.contains(events[index].id);
+
               return ListTile(
                 leading: Text(
                   DateFormat.jm().format(events[index].startTime),
@@ -85,8 +91,10 @@ class AgendaPage extends StatelessWidget {
                 ),
                 isThreeLine: true,
                 trailing: IconButton(
-                  icon: Icon(Icons.star_border),
-                  onPressed: () {},
+                  icon: Icon(starred ? Icons.star : Icons.star_border),
+                  onPressed: () {
+                    toggleStarredEvent(events[index].id, !starred);
+                  },
                 ),
                 onTap: () {
                   Navigator.pushNamed(
