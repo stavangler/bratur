@@ -11,24 +11,34 @@ class AgendaNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      key: navigatorState,
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (context) {
-            switch (settings.name) {
-              case '/':
-                return AgendaContainer();
-              case '/event':
-                return settings.arguments is Event
-                    ? EventPage(event: settings.arguments)
-                    : AgendaContainer();
-            }
-            return AgendaContainer();
+    return Theme(
+      data: Theme.of(context).copyWith(
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            ...Theme.of(context).pageTransitionsTheme.builders,
+            TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
           },
-        );
-      },
+        ),
+      ),
+      child: Navigator(
+        key: navigatorState,
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (context) {
+              switch (settings.name) {
+                case '/':
+                  return AgendaContainer();
+                case '/event':
+                  return settings.arguments is Event
+                      ? EventPage(event: settings.arguments)
+                      : AgendaContainer();
+              }
+              return AgendaContainer();
+            },
+          );
+        },
+      ),
     );
   }
 }

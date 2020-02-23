@@ -102,13 +102,15 @@ class FirestoreRepository {
             doc['location'],
             doc['track'],
             doc['topics'].cast<String>(),
-//          doc['speakers'].map((DocumentReference ref) {
-//            return ref.get().then(_mapDocumentToUser);
-//          }),
-            [],
+            (doc['speakers'].cast<DocumentReference>())
+                .map((DocumentReference ref) {
+                  return ref.get().then(_mapDocumentToUser);
+                })
+                .cast<Future<User>>()
+                .toList(),
           );
         } catch (e) {
-          return null;
+          throw Exception('Couldn\'t parse event: ${doc.documentID}');
         }
       }).toList();
     });
@@ -126,9 +128,11 @@ class FirestoreRepository {
         doc.documentID,
         doc['name'],
         doc['photoUrl'],
-        Location(
-          doc['currentLocation']['latitude'],
-          doc['currentLocation']['longitude'],
-        ),
+        doc['currentLocation'] != null
+            ? Location(
+                doc['currentLocation']['latitude'],
+                doc['currentLocation']['longitude'],
+              )
+            : null,
       );
 }
