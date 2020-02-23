@@ -14,13 +14,13 @@ dependencies:
   redux_logging: ^0.4.0
   redux_thunk: ^0.3.0
   flutter_redux: ^0.6.0
-  freezed_annotation: ^0.6.0
+  freezed_annotation: ^0.7.0
   permission_handler: ^4.2.0+hotfix.3
-  google_maps_flutter: ^0.5.24
+  google_maps_flutter: ^0.5.24+1
   cloud_firestore: ^0.13.3
   background_location: ^0.0.9+2
   firebase_auth: ^0.15.4
-  google_sign_in: ^4.1.1
+  google_sign_in: ^4.1.4
   flutter_svg: ^0.17.1
   intl: ^0.16.1
   google_fonts: ^0.3.9
@@ -33,7 +33,7 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^1.7.4
-  freezed: ^0.6.1
+  freezed: ^0.7.0
 
 
 flutter:
