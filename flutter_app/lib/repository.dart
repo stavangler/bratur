@@ -10,18 +10,40 @@ class FirestoreRepository {
       .collection('people')
       .document(userId);
 
-  Future<void> saveCurrentLocation(
+  Future<void> saveUser(
     String tripId,
     String userId,
     String displayName,
     String photoUrl,
+  ) {
+    final batch = Firestore.instance.batch();
+    batch.setData(
+      Firestore.instance.collection('users').document(userId),
+      {
+        'name': displayName,
+        'photoUrl': photoUrl,
+      },
+      merge: true,
+    );
+    batch.setData(
+      _userRef(tripId, userId),
+      {
+        'name': displayName,
+        'photoUrl': photoUrl,
+      },
+      merge: true,
+    );
+    return batch.commit();
+  }
+
+  Future<void> saveCurrentLocation(
+    String tripId,
+    String userId,
     double latitude,
     double longitude,
   ) {
     return _userRef(tripId, userId).setData(
       {
-        'name': displayName,
-        'photoUrl': photoUrl,
         'currentLocation': {
           'latitude': latitude,
           'longitude': longitude,

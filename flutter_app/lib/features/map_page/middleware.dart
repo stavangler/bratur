@@ -32,9 +32,7 @@ void Function(
       BackgroundLocation.getLocationUpdates((location) {
         firestoreRepository.saveCurrentLocation(
           store.state.tripId,
-          store.state.loginState.loggedInUser.uid,
-          store.state.loginState.loggedInUser.displayName,
-          store.state.loginState.loggedInUser.photoUrl,
+          store.state.loginState.loggedInUser.email,
           location.latitude,
           location.longitude,
         );
