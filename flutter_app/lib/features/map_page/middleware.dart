@@ -53,7 +53,7 @@ void Function(
     BackgroundLocation.stopLocationService();
     firestoreRepository.deleteCurrentLocation(
       store.state.tripId,
-      store.state.loginState.loggedInUser.uid,
+      store.state.loginState.loggedInUser.email,
     );
   };
 }
