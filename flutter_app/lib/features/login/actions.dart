@@ -14,12 +14,14 @@ final _firestoreRepository = FirestoreRepository();
 
 void getUserAction(Store<AppState> store) async {
   final user = await _auth.currentUser();
-  _firestoreRepository.saveUser(
-    store.state.tripId,
-    user.email,
-    user.displayName,
-    user.photoUrl,
-  );
+  if (user != null) {
+    _firestoreRepository.saveUser(
+      store.state.tripId,
+      user.email,
+      user.displayName,
+      user.photoUrl,
+    );
+  }
   store.dispatch(LoggedIn(user));
 }
 
@@ -72,5 +74,5 @@ class LoginFailed {
 
 @freezed
 abstract class LoggedIn with _$LoggedIn {
-  const factory LoggedIn(FirebaseUser user) = _LoggedIn;
+  const factory LoggedIn(@nullable FirebaseUser user) = _LoggedIn;
 }
