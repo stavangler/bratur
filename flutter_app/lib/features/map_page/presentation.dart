@@ -1,8 +1,10 @@
 import 'package:bratur/features/map_page/person_map_marker.dart';
+import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/models/user.dart';
 import 'package:bratur/secrets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:geolocation/geolocation.dart';
 import 'package:latlong/latlong.dart';
 import 'package:user_location/user_location.dart';
@@ -57,6 +59,7 @@ class _MapPageState extends State<MapPage> {
               zoom: 12,
               plugins: [
                 UserLocationPlugin(),
+                MarkerClusterPlugin(),
               ],
             ),
             layers: [
@@ -68,7 +71,6 @@ class _MapPageState extends State<MapPage> {
                   'id': 'mapbox.streets',
                 },
               ),
-              MarkerLayerOptions(markers: markers),
               if (geolocationResult.hasData &&
                   geolocationResult.data.isSuccessful)
                 UserLocationOptions(
@@ -87,6 +89,26 @@ class _MapPageState extends State<MapPage> {
                   fabBottom: 16,
                   fabRight: 16,
                 ),
+              MarkerLayerOptions(markers: markers),
+              MarkerClusterLayerOptions(
+                maxClusterRadius: 25,
+                size: Size(48, 48),
+                fitBoundsOptions: FitBoundsOptions(
+                  padding: EdgeInsets.all(50),
+                ),
+                markers: markers,
+                polygonOptions: PolygonOptions(
+                    borderColor: KnowitColors.lollipop,
+                    color: Colors.black12,
+                    borderStrokeWidth: 3),
+                builder: (context, markers) {
+                  return FloatingActionButton(
+                    child: Text(markers.length.toString()),
+                    backgroundColor: Theme.of(context).accentColor,
+                    onPressed: null,
+                  );
+                },
+              ),
             ],
           );
         },
@@ -98,10 +120,10 @@ class _MapPageState extends State<MapPage> {
             widget.isSharingLocation ? 'Stop sharing' : 'Share my location'),
         backgroundColor: widget.isSharingLocation
             ? Theme.of(context).buttonColor
-            : Theme.of(context).accentColor,
+            : Theme.of(context).floatingActionButtonTheme.backgroundColor,
         foregroundColor: widget.isSharingLocation
             ? Theme.of(context).textTheme.button.color
-            : Theme.of(context).accentTextTheme.button.color,
+            : Theme.of(context).floatingActionButtonTheme.foregroundColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

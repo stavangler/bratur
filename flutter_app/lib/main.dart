@@ -45,7 +45,10 @@ class MyApp extends StatelessWidget {
                 bodyColor: KnowitColors.black,
                 displayColor: KnowitColors.black,
               ),
-          buttonColor: KnowitColors.flamingo,
+          buttonColor: KnowitColors.sand,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: KnowitColors.clay,
+          ),
           fontFamily: 'Arial',
           pageTransitionsTheme: PageTransitionsTheme(
             builders: {

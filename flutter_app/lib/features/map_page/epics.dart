@@ -49,10 +49,13 @@ EpicWithActionType<AppState, ConnectToUsersInMapAction> _connectToUsersInMap(
   return (actions, store) {
     return actions
         .switchMap(
-          (action) => firestoreRepository
-              .connectToUsersInMap(store.state.tripId)
-              .map<dynamic>((users) => GotUsers(users)),
-        )
-        .onErrorReturn(ErrorGettingUsers());
+      (action) => firestoreRepository
+          .connectToUsersInMap(store.state.tripId)
+          .map<dynamic>((users) => GotUsers(users)),
+    )
+        .doOnError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+    }).onErrorReturn(ErrorGettingUsers());
   };
 }
