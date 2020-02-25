@@ -10,6 +10,6 @@ abstract class User with _$User {
     String userId,
     String name,
     String photoUrl,
-    Location currentLocation,
+    @nullable Location currentLocation,
   ) = _User;
 }

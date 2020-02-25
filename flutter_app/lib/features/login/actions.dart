@@ -1,4 +1,5 @@
 import 'package:bratur/redux/state.dart';
+import 'package:bratur/repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,10 +10,17 @@ part 'actions.freezed.dart';
 
 final _googleSignIn = GoogleSignIn();
 final _auth = FirebaseAuth.instance;
+final _firestoreRepository = FirestoreRepository();
 
 void getUserAction(Store<AppState> store) async {
   final user = await _auth.currentUser();
-  store.dispatch(InitialUserAction(user));
+  _firestoreRepository.saveUser(
+    store.state.tripId,
+    user.email,
+    user.displayName,
+    user.photoUrl,
+  );
+  store.dispatch(LoggedIn(user));
 }
 
 void doLogin(Store<AppState> store) async {
@@ -33,16 +41,19 @@ void doLogin(Store<AppState> store) async {
     );
 
     final user = (await _auth.signInWithCredential(credential)).user;
+
+    await _firestoreRepository.saveUser(
+      store.state.tripId,
+      user.email,
+      user.displayName,
+      user.photoUrl,
+    );
+
     store.dispatch(LoggedIn(user));
   }).catchError((error) {
     debugPrint('Failed logging in ${error.toString()}');
     store.dispatch(LoginFailed());
   });
-}
-
-@freezed
-abstract class InitialUserAction with _$InitialUserAction {
-  const factory InitialUserAction(FirebaseUser user) = _InitialUserAction;
 }
 
 class LoginStarted {

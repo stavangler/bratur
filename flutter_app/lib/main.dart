@@ -1,3 +1,4 @@
+import 'package:bratur/features/agenda/middleware.dart';
 import 'package:bratur/features/home_page/container.dart';
 import 'package:bratur/features/login/container.dart';
 import 'package:bratur/features/map_page/middleware.dart';
@@ -14,12 +15,14 @@ import 'package:redux_thunk/redux_thunk.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  static final firestoreRepository = FirestoreRepository();
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.initial(),
     middleware: [
       thunkMiddleware,
-      ...createMapMiddleware(new FirestoreRepository()),
+      ...createAgendaMiddleware(firestoreRepository),
+      ...createMapMiddleware(firestoreRepository),
       new LoggingMiddleware.printer(),
     ],
   );

@@ -1,3 +1,4 @@
+import 'package:bratur/features/agenda/actions.dart';
 import 'package:bratur/features/agenda/presentation.dart';
 import 'package:bratur/models/event.dart';
 import 'package:bratur/redux/state.dart';
@@ -6,20 +7,15 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 class AgendaContainer extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorState;
-
-  const AgendaContainer({
-    Key key,
-    @required this.navigatorState,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
+      onInit: (store) => store.dispatch(ConnectToAgendaEventsAction()),
       builder: (context, vm) => AgendaPage(
         events: vm.events,
-        navigatorState: navigatorState,
+        starredEvents: vm.starredEvents,
+        toggleStarredEvent: vm.toggleStarredEvent,
       ),
     );
   }
@@ -27,9 +23,18 @@ class AgendaContainer extends StatelessWidget {
 
 class _ViewModel {
   final List<Event> events;
+  final List<String> starredEvents;
+  final Function(String eventId, bool starred) toggleStarredEvent;
 
-  _ViewModel({@required this.events});
+  _ViewModel({
+    @required this.events,
+    @required this.starredEvents,
+    @required this.toggleStarredEvent,
+  });
 
-  static _ViewModel fromStore(Store<AppState> store) =>
-      _ViewModel(events: store.state.agendaState.events);
+  static _ViewModel fromStore(Store<AppState> store) => _ViewModel(
+      events: store.state.agendaState.events,
+      starredEvents: store.state.agendaState.starredEvents,
+      toggleStarredEvent: (eventId, starred) =>
+          store.dispatch(ToggleStarredEventAction(eventId, starred)));
 }

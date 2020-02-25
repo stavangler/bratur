@@ -1,4 +1,4 @@
-import 'package:bratur/features/agenda/container.dart';
+import 'package:bratur/features/agenda/navigator.dart';
 import 'package:bratur/features/info_page/presentation.dart';
 import 'package:bratur/features/map_page/container.dart';
 import 'package:bratur/knowit_colors.dart';
@@ -30,7 +30,7 @@ final List<Destination> allDestinations = <Destination>[
     'Agenda',
     Icons.view_agenda,
     KnowitColors.pear,
-    AgendaContainer(navigatorState: _agendaNavigatorKey),
+    AgendaNavigator(navigatorState: _agendaNavigatorKey),
     navigatorKey: _agendaNavigatorKey,
   ),
   Destination(1, 'Map', Icons.map, KnowitColors.flamingo, MapContainer()),

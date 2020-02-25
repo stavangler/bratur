@@ -1,3 +1,4 @@
+import 'package:bratur/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -6,9 +7,14 @@ part 'event.freezed.dart';
 @freezed
 abstract class Event with _$Event {
   const factory Event(
-    String time,
+    String id,
     String title,
+    String description,
+    DateTime startTime,
+    int duration,
     String location,
-    List<String> categories,
+    String track,
+    List<String> topics,
+    List<Future<User>> speakers,
   ) = _Event;
 }
