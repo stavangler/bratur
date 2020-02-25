@@ -35,13 +35,13 @@ jobs:
         env:
           ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
           ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
-          ANDROID_GOOGLE_MAPS_API_KEY: ${{ secrets.ANDROID_GOOGLE_MAPS_API_KEY }}
           ANDROID_GOOGLE_SERVICES_CREDENTIALS: ${{ secrets.ANDROID_GOOGLE_SERVICES_CREDENTIALS }}
+          DART_SECRETS: ${{ secrets.DART_SECRETS }}
         run: |
           echo "$ANDROID_SIGNING_KEY" | base64 --decode > key.jks
           echo "$ANDROID_KEY_PROPERTIES" | base64 --decode > key.properties
-          echo "$ANDROID_GOOGLE_MAPS_API_KEY" | base64 --decode > app/src/main/res/values/google_maps_api_key.xml
           echo "$ANDROID_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > app/google-services.json
+          echo "$DART_SECRETS" | base64 --decode > ../lib/secrets.dart
 
       - name: Build
         run: |
@@ -106,10 +106,10 @@ jobs:
       - name: Set up secret files
         working-directory: ./flutter_app/ios
         env:
-          IOS_GOOGLE_MAPS_API_KEY: ${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}
+          DART_SECRETS: ${{ secrets.DART_SECRETS }}
           IOS_GOOGLE_SERVICES_CREDENTIALS: ${{ secrets.IOS_GOOGLE_SERVICES_CREDENTIALS }}
         run: |
-          echo "$IOS_GOOGLE_MAPS_API_KEY" | base64 --decode > Runner/GoogleMapsKey.swift
+          echo "$DART_SECRETS" | base64 --decode > ../lib/secrets.dart
           echo "$IOS_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > Runner/GoogleService-Info.plist
 
       - name: Build Flutter app
