@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from "./components/layout/navbar"
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.min.js'
-import './App.css'
 import Dashboard from "./components/dashboard/dashboard"
 import TripDetails from "./components/trips/trip-details"
 import SignUp from "./components/auth/sign-up"
