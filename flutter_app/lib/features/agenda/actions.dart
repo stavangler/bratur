@@ -29,9 +29,3 @@ abstract class ToggleStarredEventAction with _$ToggleStarredEventAction {
   const factory ToggleStarredEventAction(String eventId, bool starred) =
       _ToggleStarredEventAction;
 }
-
-@freezed
-abstract class GotStarredEvents with _$GotStarredEvents {
-  const factory GotStarredEvents(List<String> starredEvents) =
-      _GotStarredEvents;
-}

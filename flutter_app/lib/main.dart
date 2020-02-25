@@ -1,4 +1,4 @@
-import 'package:bratur/features/agenda/middleware.dart';
+import 'package:bratur/features/agenda/epics.dart';
 import 'package:bratur/features/home_page/container.dart';
 import 'package:bratur/features/login/container.dart';
 import 'package:bratur/features/map_page/epics.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     initialState: AppState.initial(),
     middleware: [
       thunkMiddleware,
-      ...createAgendaMiddleware(firestoreRepository),
+      EpicMiddleware(createAgendaEpics(firestoreRepository)),
       EpicMiddleware(createMapEpics(firestoreRepository)),
       new LoggingMiddleware.printer(),
     ],

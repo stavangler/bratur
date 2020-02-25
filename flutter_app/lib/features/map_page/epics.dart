@@ -1,6 +1,7 @@
 import 'package:bratur/features/map_page/actions.dart';
 import 'package:bratur/redux/state.dart';
 import 'package:bratur/repository.dart';
+import 'package:bratur/utils/epic_with_type.dart';
 import 'package:geolocation/geolocation.dart';
 import 'package:redux_epics/redux_epics.dart';
 import 'package:rxdart/rxdart.dart';
@@ -42,10 +43,9 @@ Epic<AppState> _startSharingLocation(FirestoreRepository firestoreRepository) {
   };
 }
 
-Stream<dynamic> Function(
-  Stream<ConnectToUsersInMapAction> actions,
-  EpicStore<AppState> store,
-) _connectToUsersInMap(FirestoreRepository firestoreRepository) {
+EpicWithActionType<AppState, ConnectToUsersInMapAction> _connectToUsersInMap(
+  FirestoreRepository firestoreRepository,
+) {
   return (actions, store) {
     return actions
         .switchMap(
