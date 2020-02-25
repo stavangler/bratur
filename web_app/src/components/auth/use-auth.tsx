@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useRef, useState} from 'react'
+import React, {createContext, useContext, useEffect, useState} from 'react'
 import firebase from '../../firebase-config'
 
 firebase.auth().useDeviceLanguage()
@@ -47,9 +47,7 @@ function useProvideAuth(): Auth {
       })
   }
 
-  const metadataUnsubscribe = useRef<(() => void) | null>(null);
   useEffect(() => {
-    const currentRef = metadataUnsubscribe.current
 
     firebase
       .auth()
@@ -62,7 +60,6 @@ function useProvideAuth(): Auth {
 
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       // Remove previous listener.
-      metadataUnsubscribe.current?.()
       // On user login add new listener.
       if (user) {
         setUser(user)
@@ -71,7 +68,6 @@ function useProvideAuth(): Auth {
     })
 
     return () => {
-      currentRef?.()
       unsubscribe()
     }
   }, [])
