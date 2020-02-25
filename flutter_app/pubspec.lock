@@ -43,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
-  background_location:
-    dependency: "direct main"
-    description:
-      name: background_location
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.9+2"
   boolean_selector:
     dependency: transitive
     description:
@@ -338,6 +331,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
+  geolocation:
+    dependency: "direct main"
+    description:
+      name: geolocation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   glob:
     dependency: transitive
     description:
@@ -548,13 +548,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0+1"
-  permission_handler:
-    dependency: "direct main"
-    description:
-      name: permission_handler
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.2.0+hotfix.3"
   petitparser:
     dependency: transitive
     description:
@@ -618,6 +611,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  redux_epics:
+    dependency: "direct main"
+    description:
+      name: redux_epics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.0"
   redux_logging:
     dependency: "direct main"
     description:
@@ -700,6 +700,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  streams_channel:
+    dependency: transitive
+    description:
+      name: streams_channel
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   string_scanner:
     dependency: transitive
     description:

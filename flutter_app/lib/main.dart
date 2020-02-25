@@ -1,7 +1,7 @@
 import 'package:bratur/features/agenda/middleware.dart';
 import 'package:bratur/features/home_page/container.dart';
 import 'package:bratur/features/login/container.dart';
-import 'package:bratur/features/map_page/middleware.dart';
+import 'package:bratur/features/map_page/epics.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/redux/reducer.dart';
 import 'package:bratur/redux/state.dart';
@@ -9,6 +9,7 @@ import 'package:bratur/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_epics/redux_epics.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     middleware: [
       thunkMiddleware,
       ...createAgendaMiddleware(firestoreRepository),
-      ...createMapMiddleware(firestoreRepository),
+      EpicMiddleware(createMapEpics(firestoreRepository)),
       new LoggingMiddleware.printer(),
     ],
   );

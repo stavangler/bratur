@@ -1,11 +1,10 @@
-import 'package:background_location/background_location.dart';
 import 'package:bratur/features/map_page/person_map_marker.dart';
 import 'package:bratur/models/user.dart';
 import 'package:bratur/secrets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocation/geolocation.dart';
 import 'package:latlong/latlong.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:user_location/user_location.dart';
 
 class MapPage extends StatefulWidget {
@@ -49,9 +48,8 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       key: widget.scaffoldKey,
       body: FutureBuilder(
-        future: BackgroundLocation.checkPermissions(),
-        initialData: PermissionStatus.unknown,
-        builder: (context, AsyncSnapshot<PermissionStatus> permissionsStatus) {
+        future: Geolocation.isLocationOperational(),
+        builder: (context, AsyncSnapshot<GeolocationResult> geolocationResult) {
           return FlutterMap(
             mapController: _mapController,
             options: MapOptions(
@@ -71,8 +69,8 @@ class _MapPageState extends State<MapPage> {
                 },
               ),
               MarkerLayerOptions(markers: markers),
-              if (permissionsStatus.data.value ==
-                  PermissionStatus.granted.value)
+              if (geolocationResult.hasData &&
+                  geolocationResult.data.isSuccessful)
                 UserLocationOptions(
                   context: context,
                   mapController: _mapController,
