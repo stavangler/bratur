@@ -70,17 +70,22 @@ class FirestoreRepository {
         .updateData({'currentLocation': FieldValue.delete()});
   }
 
-  Stream<List<User>> connectToUsersInMap(String tripId) {
+  Stream<List<User>> connectToUsersInMap(String tripId, String userId) {
     return Firestore.instance
         .collection('trips')
         .document(tripId)
         .collection('people')
-        .where('currentLocation.latestUpdate',
-            isGreaterThan: Timestamp.fromDate(
-                DateTime.now().subtract(Duration(minutes: 15))))
+        .where(
+          'currentLocation.latestUpdate',
+          isGreaterThan: Timestamp.fromDate(
+              DateTime.now().subtract(Duration(minutes: 15))),
+        )
         .snapshots()
         .map(
-          (snapshot) => snapshot.documents.map(_mapDocumentToUser).toList(),
+          (snapshot) => snapshot.documents
+              .map(_mapDocumentToUser)
+              .where((user) => user.userId != userId)
+              .toList(),
         );
   }
 

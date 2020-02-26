@@ -8,10 +8,9 @@ part 'state.freezed.dart';
 abstract class AgendaState with _$AgendaState {
   const factory AgendaState(
     List<Event> events,
-    List<String> starredEvents,
   ) = _AgendaState;
 
   factory AgendaState.initial() {
-    return AgendaState([], []);
+    return AgendaState([]);
   }
 }

@@ -15,6 +15,7 @@ abstract class Event with _$Event {
     String location,
     String track,
     List<String> topics,
-    List<Future<User>> speakers,
-  ) = _Event;
+    List<Future<User>> speakers, {
+    @Default(false) bool starred,
+  }) = _Event;
 }

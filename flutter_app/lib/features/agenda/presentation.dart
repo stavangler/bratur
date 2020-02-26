@@ -6,13 +6,11 @@ import 'package:intl/intl.dart';
 
 class AgendaPage extends StatelessWidget {
   final List<Event> events;
-  final List<String> starredEvents;
   final Function(String eventId, bool starred) toggleStarredEvent;
 
   const AgendaPage({
     Key key,
     @required this.events,
-    @required this.starredEvents,
     @required this.toggleStarredEvent,
   }) : super(key: key);
 
@@ -32,18 +30,18 @@ class AgendaPage extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final starred = starredEvents.contains(events[index].id);
+                final event = events[index];
 
                 return ListTile(
                   leading: Text(
-                    DateFormat.jm().format(events[index].startTime),
+                    DateFormat.jm().format(event.startTime),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  title: Text(events[index].title),
+                  title: Text(event.title),
                   subtitle: Column(
                     children: <Widget>[
                       Padding(padding: EdgeInsets.only(top: 4)),
@@ -54,29 +52,29 @@ class AgendaPage extends StatelessWidget {
                             size: 16,
                             color: KnowitColors.clay,
                           ),
-                          Text(events[index].location),
+                          Text(event.location),
                         ],
                       ),
                       Padding(padding: EdgeInsets.only(top: 4)),
                       Topics(topics: [
-                        events[index].track,
-                        ...events[index].topics,
+                        event.track,
+                        ...event.topics,
                       ]),
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                   isThreeLine: true,
                   trailing: IconButton(
-                    icon: Icon(starred ? Icons.star : Icons.star_border),
+                    icon: Icon(event.starred ? Icons.star : Icons.star_border),
                     onPressed: () {
-                      toggleStarredEvent(events[index].id, !starred);
+                      toggleStarredEvent(event.id, !event.starred);
                     },
                   ),
                   onTap: () {
                     Navigator.pushNamed(
                       context,
                       '/event',
-                      arguments: events[index],
+                      arguments: event,
                     );
                   },
                 );

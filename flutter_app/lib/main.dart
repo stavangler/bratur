@@ -1,7 +1,7 @@
-import 'package:bratur/features/agenda/middleware.dart';
+import 'package:bratur/features/agenda/epics.dart';
 import 'package:bratur/features/home_page/container.dart';
 import 'package:bratur/features/login/container.dart';
-import 'package:bratur/features/map_page/middleware.dart';
+import 'package:bratur/features/map_page/epics.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/redux/reducer.dart';
 import 'package:bratur/redux/state.dart';
@@ -9,6 +9,7 @@ import 'package:bratur/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_epics/redux_epics.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
     initialState: AppState.initial(),
     middleware: [
       thunkMiddleware,
-      ...createAgendaMiddleware(firestoreRepository),
-      ...createMapMiddleware(firestoreRepository),
+      EpicMiddleware(createAgendaEpics(firestoreRepository)),
+      EpicMiddleware(createMapEpics(firestoreRepository)),
       new LoggingMiddleware.printer(),
     ],
   );
@@ -44,7 +45,10 @@ class MyApp extends StatelessWidget {
                 bodyColor: KnowitColors.black,
                 displayColor: KnowitColors.black,
               ),
-          buttonColor: KnowitColors.flamingo,
+          buttonColor: KnowitColors.sand,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: KnowitColors.clay,
+          ),
           fontFamily: 'Arial',
           pageTransitionsTheme: PageTransitionsTheme(
             builders: {
