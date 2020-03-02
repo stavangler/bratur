@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import * as firebase from 'firebase/app'
+// eslint-disable-next-line no-unused-vars
 import { Trip } from '../../model/trip'
 
-export function useTrips() {
+export function useTrips () {
   const [error, setError] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
   const [trips, setTrips] = React.useState<Trip[]>([])
@@ -14,7 +15,7 @@ export function useTrips() {
       .withConverter({
         fromFirestore: snapshot => ({
           id: snapshot.id,
-          name: snapshot.data().name
+          name: snapshot.data().name,
         }),
         toFirestore: (modelObject: Trip) => modelObject,
       })
@@ -27,7 +28,7 @@ export function useTrips() {
         error => {
           console.log(error)
           setError(true)
-        }
+        },
       )
 
     return () => unsubscribe()
