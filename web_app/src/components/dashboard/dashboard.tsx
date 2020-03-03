@@ -1,8 +1,8 @@
 import React from 'react'
 import Notifications from './notifications'
-import TripList from "../trips/trip-list"
+import TripList from '../trips/trip-list'
 
-function Dashboard() {
+function Dashboard () {
   return (
     <div className="dashboard container">
       <div className="row">

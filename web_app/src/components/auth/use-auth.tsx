@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useState} from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import firebase from '../../firebase-config'
 
 firebase.auth().useDeviceLanguage()
@@ -10,7 +10,7 @@ type Auth = {
   admin: boolean | null
 }
 
-const authContext = createContext<Auth | null>(null);
+const authContext = createContext<Auth | null>(null)
 
 export const useAuth = () => {
   return (
@@ -23,7 +23,7 @@ export const useAuth = () => {
   )
 }
 
-function useProvideAuth(): Auth {
+function useProvideAuth (): Auth {
   const [user, setUser] = useState<firebase.User | null>(null)
   const [admin, setAdmin] = useState<boolean | null>(null)
 
@@ -31,10 +31,9 @@ function useProvideAuth(): Auth {
     firebase
       .auth()
       .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-      .then(()=> {
+      .then(() => {
         console.log('signed in')
-        }
-      )
+      })
   }
 
   const signOut = () => {
@@ -48,7 +47,6 @@ function useProvideAuth(): Auth {
   }
 
   useEffect(() => {
-
     firebase
       .auth()
       .getRedirectResult()
@@ -90,7 +88,7 @@ function useProvideAuth(): Auth {
 }
 
 export const ProvideAuth = ({ children }: { children: React.ReactElement }) => {
-  const auth = useProvideAuth();
+  const auth = useProvideAuth()
 
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-};
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>
+}

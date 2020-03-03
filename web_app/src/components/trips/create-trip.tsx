@@ -1,10 +1,10 @@
-import React, {FormEvent, useState} from 'react';
+import React, { FormEvent, useState } from 'react'
 
-function CreateTrip() {
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
+function CreateTrip () {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit (e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(title, description)
   }

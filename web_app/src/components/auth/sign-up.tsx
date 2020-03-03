@@ -1,13 +1,12 @@
-import React, {FormEvent, useState} from 'react';
+import React, { FormEvent, useState } from 'react'
 
-function SignUp() {
+function SignUp () {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit (e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(email, password, firstName, lastName)
   }
