@@ -1,6 +1,8 @@
 name: Build and deploy Web app
 on:
   push:
+    branches:
+      - master
     paths:
       - 'web_app/**'
       - '.github/workflows/web.yml'
