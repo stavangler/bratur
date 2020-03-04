@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: build
+          path: web_app/build
 
   deploy:
     name: Deploy
@@ -50,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: build
-          path: build
+          path: web_app/build
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.2.0
