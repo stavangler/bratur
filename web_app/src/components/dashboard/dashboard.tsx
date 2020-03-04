@@ -1,19 +1,48 @@
 import React from 'react'
-import Notifications from './notifications'
 import TripList from '../trips/trip-list'
+import {Container, Grid, makeStyles} from "@material-ui/core";
 
-function Dashboard () {
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+  }),
+)
+
+function Dashboard() {
+  const classes = useStyles()
+
   return (
-    <div className="dashboard container">
-      <div className="row">
-        <div className="col s12 m6">
+    <main>
+      <div className={classes.appBarSpacer}/>
+      <Container maxWidth="lg" className={classes.container}>
+        <Grid container spacing={3}>
           <TripList/>
-        </div>
-        <div className="col s12 m5 offset-m1">
-          <Notifications/>
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Container>
+    </main>
   )
 }
 

@@ -1,18 +1,29 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useAuth } from '../auth/use-auth'
+import {useAuth} from '../auth/use-auth'
+import {ReactRouterLink} from '../react-router-link'
+import {Avatar, Button, makeStyles} from '@material-ui/core'
 
-function SignedInLinks () {
-  const { user, signOut } = useAuth()
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+  }),
+)
+
+function SignedInLinks() {
+  const {user, signOut} = useAuth()
+  const classes = useStyles()
   return (
-    <div>
-      <ul className="right">
-        <li><NavLink to='/create'>New trip</NavLink></li>
-        <li><a href="/#" onClick={(e) => { e.preventDefault(); signOut() }}>Log out</a></li>
-        <li><NavLink to='/' className="btn btn-floating pink lighten-1">
-          <img className="btn btn-floating pink lighten-1" src={user?.photoURL?.toString()} alt="" />
-        </NavLink></li>
-      </ul>
+    <div className={classes.root}>
+      <Button className={classes.menuButton} component={ReactRouterLink} to="/create" color="inherit">New trip</Button>
+      <Button className={classes.menuButton} color="inherit" onClick={(e) => {
+        e.preventDefault()
+        signOut()
+      }}>Log out</Button>
+      <Avatar title={user?.displayName?.toString()} src={user?.photoURL?.toString()}/>
     </div>
   )
 }
