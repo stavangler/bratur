@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
     "easy-peasy": "^3.3.0",
     "firebase": "^7.9.3",
-    "materialize-css": "^1.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-firebase-hooks": "^2.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "typeface-roboto": "^0.0.75"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",

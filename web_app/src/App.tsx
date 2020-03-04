@@ -1,8 +1,7 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Navbar from './components/layout/navbar'
-import 'materialize-css/dist/css/materialize.min.css'
-import 'materialize-css/dist/js/materialize.min.js'
 import Dashboard from './components/dashboard/dashboard'
 import TripDetails from './components/trips/trip-details'
 import SignUp from './components/auth/sign-up'
@@ -13,21 +12,24 @@ import store from './store'
 
 function App() {
   return (
-    <BrowserRouter>
-      <ProvideAuth>
-        <StoreProvider store={store}>
-          <div className="App">
-            <Navbar/>
-            <Switch>
-              <Route exact path='/' component={Dashboard}/>
-              <Route path='/trip/:id' component={TripDetails}/>
-              <Route path='/signup' component={SignUp}/>
-              <Route path='/create' component={CreateTrip}/>
-            </Switch>
-          </div>
-        </StoreProvider>
-      </ProvideAuth>
-    </BrowserRouter>
+    <>
+      <CssBaseline/>
+      <BrowserRouter>
+        <ProvideAuth>
+          <StoreProvider store={store}>
+            <div className="App">
+              <Navbar/>
+              <Switch>
+                <Route exact path='/' component={Dashboard}/>
+                <Route path='/trip/:id' component={TripDetails}/>
+                <Route path='/signup' component={SignUp}/>
+                <Route path='/create' component={CreateTrip}/>
+              </Switch>
+            </div>
+          </StoreProvider>
+        </ProvideAuth>
+      </BrowserRouter>
+    </>
   )
 }
 

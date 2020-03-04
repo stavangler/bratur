@@ -1,43 +1,58 @@
 import React, {useEffect} from 'react'
 import TripSummary from './trip-summary'
-import {Link} from 'react-router-dom'
 import {useStoreActions, useStoreState} from "../../hooks"
+import {CircularProgress, Grid, makeStyles, Typography} from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+  }),
+)
 
 export default function TripList() {
-  const {items, error, loading} = useStoreState(state => state.trips)
+  const items = useStoreState(state => state.trips.items)
+  const error = useStoreState(state => state.trips.error)
+  const loading = useStoreState(state => state.trips.loading)
   const {fetch} = useStoreActions(actions => actions.trips)
+  const classes = useStyles()
 
   useEffect(() => {
     fetch()
   }, [fetch])
 
   if (error) {
-    return <p>Error!</p>
+    return (
+      <div className={classes.root}>
+        <Typography variant="h1">Error!</Typography>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return <CircularProgress/>
   }
 
   return (
-    <div className="project-list section">
-      {
-        loading
-          ? <div className="preloader-wrapper small active">
-            <div className="spinner-layer spinner-green-only">
-              <div className="circle-clipper left">
-                <div className="circle"/>
-              </div>
-              <div className="gap-patch">
-                <div className="circle"/>
-              </div>
-              <div className="circle-clipper right">
-                <div className="circle"/>
-              </div>
-            </div>
-          </div>
-          : items.map((trip, index) => (
-            <Link to={'/trip/' + trip.id} key={trip.id}>
-              <TripSummary trip={trip}/>
-            </Link>
-          ))
+    <Grid container spacing={3}>
+      {items.map((trip, index) => (
+        <Grid item xs={12} md={8} lg={9} key={trip.id}>
+            <TripSummary trip={trip}/>
+        </Grid>
+      ))
       }
-    </div>
+    </Grid>
   )
 }
