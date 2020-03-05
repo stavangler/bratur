@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bratur/features/agenda/topics.dart';
 import 'package:bratur/knowit_colors.dart';
 import 'package:bratur/models/event.dart';
@@ -22,6 +24,10 @@ class AgendaPage extends StatelessWidget {
           SliverAppBar(
             flexibleSpace: FlexibleSpaceBar(
               title: Text('Agenda'),
+              titlePadding: EdgeInsetsDirectional.only(
+                start: Platform.isIOS ? 0 : 90,
+                bottom: 16,
+              ),
             ),
             floating: false,
             pinned: true,

@@ -55,6 +55,8 @@ class _HomePageState extends State<HomePage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    } else if (state == AppLifecycleState.paused) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle());
     }
   }
 
