@@ -4,6 +4,7 @@ import TripDrawer from './trip-drawer'
 import TripInformation from './trip-information'
 import TripAgenda from './trip-agenda'
 import TripParticipants from './trip-participants'
+import {makeStyles} from '@material-ui/core'
 
 interface ParamsProps {
   id: string
@@ -18,13 +19,26 @@ interface TripProps {
   match: MatchProps
 }
 
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+  }),
+)
+
 export default function TripDetails(props: TripProps) {
   const {id} = props.match.params
+  const classes = useStyles()
 
   return (
-    <div>
+    <div className={classes.root}>
       <TripDrawer id={id}/>
-      <main>
+      <main className={classes.content}>
         <Switch>
           <Route exact path={props.match.path} component={TripInformation}/>
           <Route path={`${props.match.path}/agenda`} component={TripAgenda}/>

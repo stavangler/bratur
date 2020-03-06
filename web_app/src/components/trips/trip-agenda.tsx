@@ -23,13 +23,11 @@ export default function TripAgenda(props: TripProps) {
   }, [fetch, id])
 
   return (
-    <div>
-      <div className="card-content">
-        <span className="card-title">Agenda ({agenda.items && agenda.items.length})</span>
-        { agenda.items.map (i => <div key={i.id}>{i.title}</div>) }
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore quaerat quibusdam vel saepe, ab
-          voluptate accusantium culpa nemo fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?</p>
-      </div>
+    <div className="card-content">
+      <span className="card-title">Agenda ({agenda.items && agenda.items.length})</span>
+      {agenda.items.map(i => <div key={i.id}>{i.title}</div>)}
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore quaerat quibusdam vel saepe, ab
+        voluptate accusantium culpa nemo fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?</p>
     </div>
   )
 }
