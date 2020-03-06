@@ -5,6 +5,7 @@ import TripInformation from './trip-information'
 import TripAgenda from './trip-agenda'
 import TripParticipants from './trip-participants'
 import {makeStyles} from '@material-ui/core'
+import TripEdit from './trip-edit'
 
 interface ParamsProps {
   id: string
@@ -41,6 +42,7 @@ export default function TripDetails(props: TripProps) {
       <main className={classes.content}>
         <Switch>
           <Route exact path={props.match.path} component={TripInformation}/>
+          <Route path={`${props.match.path}/edit`} component={TripEdit}/>
           <Route path={`${props.match.path}/agenda`} component={TripAgenda}/>
           <Route path={`${props.match.path}/participants`} component={TripParticipants}/>
         </Switch>
