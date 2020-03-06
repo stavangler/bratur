@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
     menuButton: {
       marginRight: 36,
     },
-    appBarSpacer: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
       height: '100vh',
@@ -36,7 +35,6 @@ function Dashboard() {
 
   return (
     <main>
-      <div className={classes.appBarSpacer}/>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
           <TripList/>

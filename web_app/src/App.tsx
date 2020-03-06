@@ -9,8 +9,19 @@ import CreateTrip from './components/trips/create-trip'
 import {ProvideAuth} from './components/auth/use-auth'
 import {StoreProvider} from 'easy-peasy'
 import store from './store'
+import {makeStyles} from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+    },
+    appBarSpacer: theme.mixins.toolbar,
+  }),
+)
 
 function App() {
+  const classes = useStyles()
+
   return (
     <>
       <CssBaseline/>
@@ -19,6 +30,7 @@ function App() {
           <StoreProvider store={store}>
             <div className="App">
               <Navbar/>
+              <div className={classes.appBarSpacer}/>
               <Switch>
                 <Route exact path='/' component={Dashboard}/>
                 <Route path='/trip/:id' component={TripDetails}/>
