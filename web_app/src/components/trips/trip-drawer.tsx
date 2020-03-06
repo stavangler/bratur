@@ -47,7 +47,12 @@ const useStyles = makeStyles(theme => ({
   }),
 )
 
-function TripDrawer() {
+interface DrawerProps {
+  id: string
+}
+
+function TripDrawer(props: DrawerProps) {
+  const {id} = props
   const classes = useStyles()
   return (
     <Drawer
@@ -64,23 +69,23 @@ function TripDrawer() {
           </ListItemIcon>
           <ListItemText primary="All trips"/>
         </ListItem>
-        <ListItem button>
+        <ListItem button component={ReactRouterLink} to={'/trip/' + id}>
+          <ListItemIcon>
+            <LayersIcon/>
+          </ListItemIcon>
+          <ListItemText primary="Information"/>
+        </ListItem>
+        <ListItem button component={ReactRouterLink} to={'/trip/' + id + '/agenda'}>
           <ListItemIcon>
             <ViewAgendaIcon/>
           </ListItemIcon>
           <ListItemText primary="Agenda"/>
         </ListItem>
-        <ListItem button>
+        <ListItem button component={ReactRouterLink} to={'/trip/' + id + '/participants'}>
           <ListItemIcon>
             <PeopleIcon/>
           </ListItemIcon>
           <ListItemText primary="Participants"/>
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LayersIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Information"/>
         </ListItem>
       </div>
     </Drawer>

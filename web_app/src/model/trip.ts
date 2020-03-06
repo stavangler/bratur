@@ -1,4 +1,5 @@
 import { Action, Thunk } from 'easy-peasy'
+import {Agenda} from "../store/agenda";
 
 export interface Trip {
   id: string,

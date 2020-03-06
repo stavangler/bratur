@@ -9,7 +9,7 @@ import CreateTrip from './components/trips/create-trip'
 import {ProvideAuth} from './components/auth/use-auth'
 import {StoreProvider} from 'easy-peasy'
 import store from './store'
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     root: {

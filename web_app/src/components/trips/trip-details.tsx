@@ -1,37 +1,35 @@
 import React from 'react'
-import {useStoreState} from "../../hooks"
+import {Route, Switch} from 'react-router-dom'
 import TripDrawer from './trip-drawer'
+import TripInformation from './trip-information'
+import TripAgenda from './trip-agenda'
+import TripParticipants from './trip-participants'
 
-type ParamsProps = {
+interface ParamsProps {
   id: string
 }
 
-type MatchProps = {
+interface MatchProps {
   params: ParamsProps
+  path: string
 }
 
-type TripProps = {
+interface TripProps {
   match: MatchProps
 }
 
 export default function TripDetails(props: TripProps) {
   const {id} = props.match.params
-  const {items} = useStoreState(state => state.trips)
-  const trip = items.find(t => t.id === id)
 
   return (
     <div>
-      <TripDrawer/>
+      <TripDrawer id={id}/>
       <main>
-        <div className="card-content">
-          <span className="card-title">{trip && trip.name}</span>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore quaerat quibusdam vel saepe, ab
-            voluptate accusantium culpa nemo fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?</p>
-        </div>
-        <div className="card-action grey lighten-4 grey-text">
-          <div>Posted by Someone</div>
-          <div>2nd September, 13:37</div>
-        </div>
+        <Switch>
+          <Route exact path={props.match.path} component={TripInformation}/>
+          <Route path={`${props.match.path}/agenda`} component={TripAgenda}/>
+          <Route path={`${props.match.path}/participants`} component={TripParticipants}/>
+        </Switch>
       </main>
     </div>
   )
