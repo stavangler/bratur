@@ -1,51 +1,38 @@
-import React from 'react'
-import {Trip} from '../../model/trip'
-import {Button, Card, CardActions, CardContent, Typography, makeStyles} from '@material-ui/core'
-import {ReactRouterLink} from "../react-router-link"
+import React from "react";
+import { Trip } from "../../model/trip";
+import { Card, CardActionArea, CardHeader, CardMedia } from "@material-ui/core";
+import { ReactRouterLink } from "../react-router-link";
+import { makeStyles } from "@material-ui/core/styles";
 
 type TripProps = {
-  trip: Trip
-}
+  trip: Trip;
+};
 
-const useStyles = makeStyles(theme => ({
-    root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    pos: {
-      marginBottom: 12,
-    },
-    actions: {
-      backgroundColor: theme.palette.grey["600"],
-      color: theme.palette.getContrastText(theme.palette.grey["600"]),
-    },
-  }),
-)
+const useStyles = makeStyles({
+  media: {
+    height: 0,
+    paddingTop: "56.25%" // 16:9
+  }
+});
 
-function TripSummary(props: TripProps) {
-  const classes = useStyles()
+function TripSummary({ trip }: TripProps) {
+  const classes = useStyles();
+
   return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography component="h2" variant="h6" color="textSecondary" gutterBottom>
-          {props.trip.name}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Posted by Someone
-        </Typography>
-        <Typography variant="body2" component="p">
-          3rd September, 13:37
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.actions}>
-        <Button size="small" color="inherit" component={ReactRouterLink} to={'/trip/' + props.trip.id}>Trip details</Button>
-      </CardActions>
+    <Card>
+      <CardActionArea component={ReactRouterLink} to={`/trip/${trip.id}`}>
+        <CardHeader
+          title={trip.name}
+          subheader="Posted by Someone, 3rd September, 13:37"
+        />
+        <CardMedia
+          className={classes.media}
+          image={trip.image.small}
+          title={trip.image.attribution}
+        />
+      </CardActionArea>
     </Card>
-  )
+  );
 }
 
-export default TripSummary
+export default TripSummary;
