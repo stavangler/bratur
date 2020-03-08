@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core"
 
 export const knowitColors = {
   black: "#333333",
@@ -9,25 +9,31 @@ export const knowitColors = {
   mint: "#DBEEDE",
   lollipop: "#FF00FF",
   sand: "#E4E1DB",
-  clay: "#A5B1AA"
-};
+  clay: "#A5B1AA",
+}
 
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: knowitColors.pear
+      main: knowitColors.pear,
     },
     secondary: {
-      main: knowitColors.forest
+      main: knowitColors.forest,
     },
     background: {
-      default: knowitColors.white
+      default: knowitColors.white,
     },
     common: {
       white: knowitColors.white,
-      black: knowitColors.black
+      black: knowitColors.black,
     },
-    type: "light"
+    action: {
+      selected: knowitColors.sand,
+    },
+    text: {
+      primary: knowitColors.black,
+    },
+    type: "light",
   },
   typography: {
     fontFamily: [
@@ -47,15 +53,12 @@ export const theme = createMuiTheme({
       "Geneva",
       "Helvetica Neue",
       "Helvetica",
-      "sans-serif"
+      "sans-serif",
     ].join(","),
     fontSize: 16,
     htmlFontSize: 16,
-    allVariants: {
-      color: knowitColors.black
-    },
     button: {
-      fontFamily: "Roboto"
-    }
-  }
-});
+      fontFamily: "Roboto",
+    },
+  },
+})
