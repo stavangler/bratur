@@ -1,5 +1,5 @@
-import {action, Action, thunk, Thunk} from 'easy-peasy'
-import firebase from '../firebase-config'
+import { action, Action, thunk, Thunk } from "easy-peasy"
+import firebase from "../../../firebase-config"
 
 export interface Participant {
   id: string
@@ -19,7 +19,7 @@ export interface Participants {
 }
 
 const participants: Participants = {
-  tripId: '',
+  tripId: "",
   setTripId: action((state, payload) => {
     state.tripId = payload
   }),
@@ -57,7 +57,7 @@ const participants: Participants = {
         error => {
           console.log(error)
           actions.setError(true)
-        },
+        }
       )
 
     return () => unsubscribe()

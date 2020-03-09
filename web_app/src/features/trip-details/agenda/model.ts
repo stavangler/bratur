@@ -1,5 +1,5 @@
-import {action, Action, thunk, Thunk} from 'easy-peasy'
-import firebase from '../firebase-config'
+import { action, Action, thunk, Thunk } from "easy-peasy"
+import firebase from "../../../firebase-config"
 
 export interface Speaker {
   id: number
@@ -21,20 +21,20 @@ export interface AgendaItem {
   track: string
 }
 
-export interface Agenda {
+export interface AgendaModel {
   tripId: string
-  setTripId: Action<Agenda, string>
+  setTripId: Action<AgendaModel, string>
   items: AgendaItem[]
-  fetch: Thunk<Agenda, string>
-  setItems: Action<Agenda, AgendaItem[]>
+  fetch: Thunk<AgendaModel, string>
+  setItems: Action<AgendaModel, AgendaItem[]>
   loading: boolean | false
   error: boolean | false
-  setError: Action<Agenda, boolean>
-  setLoading: Action<Agenda, boolean>
+  setError: Action<AgendaModel, boolean>
+  setLoading: Action<AgendaModel, boolean>
 }
 
-const agenda: Agenda = {
-  tripId: '',
+const agenda: AgendaModel = {
+  tripId: "",
   setTripId: action((state, payload) => {
     state.tripId = payload
   }),
@@ -77,7 +77,7 @@ const agenda: Agenda = {
         error => {
           console.log(error)
           actions.setError(true)
-        },
+        }
       )
 
     return () => unsubscribe()
