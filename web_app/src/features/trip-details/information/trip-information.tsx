@@ -35,6 +35,12 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
+  image: {
+    width: "100%",
+    height: 500,
+    objectFit: "cover",
+    objectPosition: "center",
+  },
 }))
 
 export default function TripInformation(props: TripProps) {
@@ -50,39 +56,51 @@ export default function TripInformation(props: TripProps) {
     return subscribe(id)
   }, [subscribe, id])
 
+  if (!trip) {
+    return null
+  }
+
   return (
-    <Container className={classes.container} maxWidth="lg">
-      <Grid container spacing={2}>
-        <Grid item className={classes.top}>
-          <div className={classes.title}>
-            <Typography variant="h3">{trip && trip.name}</Typography>
-          </div>
-          {user && (
-            <div className={classes.actions}>
-              <IconButton
-                aria-label="edit"
-                title="Edit"
-                component={ReactRouterLink}
-                to={"/trip/" + id + "/edit"}
-              >
-                <EditIcon />
-              </IconButton>
+    <div>
+      <img
+        className={classes.image}
+        src={trip.image.large}
+        alt={trip.image.attribution}
+      />
+
+      <Container className={classes.container} maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item className={classes.top}>
+            <div className={classes.title}>
+              <Typography variant="h3">{trip && trip.name}</Typography>
             </div>
-          )}
-        </Grid>
+            {user && (
+              <div className={classes.actions}>
+                <IconButton
+                  aria-label="edit"
+                  title="Edit"
+                  component={ReactRouterLink}
+                  to={"/trip/" + id + "/edit"}
+                >
+                  <EditIcon />
+                </IconButton>
+              </div>
+            )}
+          </Grid>
 
-        <Grid item>
-          <Typography variant="subtitle1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore
-            quaerat quibusdam vel saepe, ab voluptate accusantium culpa nemo
-            fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?
-          </Typography>
-        </Grid>
+          <Grid item>
+            <Typography variant="subtitle1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore
+              quaerat quibusdam vel saepe, ab voluptate accusantium culpa nemo
+              fuga earum? Soluta amet nobis officia sed neque fuga aperiam quia?
+            </Typography>
+          </Grid>
 
-        <Grid item>
-          <Typography variant="caption">2nd September, 13:37</Typography>
+          <Grid item>
+            <Typography variant="caption">2nd September, 13:37</Typography>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   )
 }
