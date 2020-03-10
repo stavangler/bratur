@@ -6,18 +6,13 @@ export interface Speaker {
   email: string
 }
 
-export interface Topic {
-  id: number
-  topic: string
-}
-
 export interface AgendaItem {
   id: string
   title: string
   description: string
   location: string
   speakers: Speaker[]
-  topics: Topic[]
+  topics: string[]
   track: string
 }
 

@@ -10,18 +10,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit"
 import { useAuth } from "../../../components/auth/use-auth"
 import { ReactRouterLink } from "../../react-router-link"
-
-interface ParamsProps {
-  id: string
-}
-
-interface MatchProps {
-  params: ParamsProps
-}
-
-interface TripProps {
-  match: MatchProps
-}
+import { useParams } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
   top: {
@@ -43,8 +32,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function TripInformation(props: TripProps) {
-  const id = props.match.params.id
+export default function TripInformation() {
+  const { id } = useParams()
   const trip = useStoreState(state => state.tripInformation.data[0])
   const subscribe = useStoreActions(
     actions => actions.tripInformation.subscribe
@@ -53,7 +42,9 @@ export default function TripInformation(props: TripProps) {
   const { user } = useAuth()
 
   useEffect(() => {
-    return subscribe(id)
+    if (id) {
+      return subscribe(id)
+    }
   }, [subscribe, id])
 
   if (!trip) {

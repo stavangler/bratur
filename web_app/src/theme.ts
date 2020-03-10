@@ -29,6 +29,7 @@ export const theme = createMuiTheme({
     },
     action: {
       selected: knowitColors.sand,
+      disabled: knowitColors.clay,
     },
     text: {
       primary: knowitColors.black,
