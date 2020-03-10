@@ -15,19 +15,17 @@ interface TripProps {
 
 export default function TripAgenda(props: TripProps) {
   const { id } = props.match.params
-  const { fetch } = useStoreActions(actions => actions.agenda)
-  const agenda = useStoreState(state => state.agenda)
+  const { subscribe } = useStoreActions(actions => actions.agenda)
+  const data = useStoreState(state => state.agenda.data)
 
   useEffect(() => {
-    fetch(id)
-  }, [fetch, id])
+    return subscribe(id)
+  }, [subscribe, id])
 
   return (
     <div className="card-content">
-      <span className="card-title">
-        Agenda ({agenda.items && agenda.items.length})
-      </span>
-      {agenda.items.map(i => (
+      <span className="card-title">Agenda ({data && data.length})</span>
+      {data.map(i => (
         <div key={i.id}>{i.title}</div>
       ))}
       <p>

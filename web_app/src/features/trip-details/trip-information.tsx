@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function TripInformation(props: TripProps) {
   const id = props.match.params.id
-  const trip = useStoreState(state => state.trips.items.find(t => t.id === id))
+  const trip = useStoreState(state => state.trips.data.find(t => t.id === id))
   const classes = useStyles()
   const { user } = useAuth()
 

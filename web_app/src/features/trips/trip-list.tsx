@@ -5,14 +5,14 @@ import { CircularProgress, Grid } from "@material-ui/core"
 import { Alert } from "@material-ui/lab"
 
 export default function TripList() {
-  const items = useStoreState(state => state.trips.items)
+  const items = useStoreState(state => state.trips.data)
   const error = useStoreState(state => state.trips.error)
   const loading = useStoreState(state => state.trips.loading)
-  const { fetch } = useStoreActions(actions => actions.trips)
+  const { subscribe } = useStoreActions(actions => actions.trips)
 
   useEffect(() => {
-    return fetch()
-  }, [fetch])
+    return subscribe()
+  }, [subscribe])
 
   if (error) {
     return (
