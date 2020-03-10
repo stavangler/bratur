@@ -1,12 +1,13 @@
 import firebase from "../../../firebase-config"
-import { dataModel, DataModel } from "../../../store/data-model"
+import { dataModel, CollectionDataModel } from "../../../store/data-model"
 
 export interface Participant {
   id: string
   email: string
 }
 
-export interface Participants extends DataModel<Participant, string> {}
+export interface Participants
+  extends CollectionDataModel<Participant, string> {}
 
 const participants: Participants = {
   ...dataModel(

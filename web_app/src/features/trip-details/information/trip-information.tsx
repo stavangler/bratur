@@ -1,5 +1,5 @@
-import React from "react"
-import { useStoreState } from "../../store/hooks"
+import React, { useEffect } from "react"
+import { useStoreActions, useStoreState } from "../../../store/hooks"
 import {
   Container,
   Grid,
@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
-import { useAuth } from "../../components/auth/use-auth"
-import { ReactRouterLink } from "../react-router-link"
+import { useAuth } from "../../../components/auth/use-auth"
+import { ReactRouterLink } from "../../react-router-link"
 
 interface ParamsProps {
   id: string
@@ -39,9 +39,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function TripInformation(props: TripProps) {
   const id = props.match.params.id
-  const trip = useStoreState(state => state.trips.data.find(t => t.id === id))
+  const trip = useStoreState(state => state.tripInformation.data[0])
+  const subscribe = useStoreActions(
+    actions => actions.tripInformation.subscribe
+  )
   const classes = useStyles()
   const { user } = useAuth()
+
+  useEffect(() => {
+    return subscribe(id)
+  }, [subscribe, id])
 
   return (
     <Container className={classes.container} maxWidth="lg">

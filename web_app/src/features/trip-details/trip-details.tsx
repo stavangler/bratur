@@ -1,7 +1,7 @@
 import React from "react"
 import { Route, Switch } from "react-router-dom"
 import TripDrawer from "../trips/trip-drawer"
-import TripInformation from "./trip-information"
+import TripInformation from "./information/trip-information"
 import TripAgenda from "./agenda/trip-agenda"
 import TripParticipants from "./participants/trip-participants"
 import { makeStyles } from "@material-ui/core"

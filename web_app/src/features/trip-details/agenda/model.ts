@@ -1,5 +1,5 @@
 import firebase from "../../../firebase-config"
-import { dataModel, DataModel } from "../../../store/data-model"
+import { dataModel, CollectionDataModel } from "../../../store/data-model"
 
 export interface Speaker {
   id: number
@@ -21,7 +21,7 @@ export interface AgendaItem {
   track: string
 }
 
-export interface AgendaModel extends DataModel<AgendaItem, string> {}
+export interface AgendaModel extends CollectionDataModel<AgendaItem, string> {}
 
 const agenda: AgendaModel = {
   ...dataModel(
