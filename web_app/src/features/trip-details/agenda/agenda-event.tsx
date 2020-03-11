@@ -9,7 +9,6 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Theme,
   Typography,
 } from "@material-ui/core"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
@@ -17,8 +16,9 @@ import LocationOnIcon from "@material-ui/icons/LocationOn"
 import React, { useEffect, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import moment from "moment"
+import { knowitColors } from "../../../theme"
 
-const useStyles = makeStyles(({ spacing }: Theme) => ({
+const useStyles = makeStyles({
   dot: {
     height: 12,
     width: 12,
@@ -28,10 +28,11 @@ const useStyles = makeStyles(({ spacing }: Theme) => ({
   monoFont: {
     fontFamily: "Roboto Mono, monospace",
   },
-  speakersHeader: {
-    marginTop: spacing(2),
+  time: {
+    color: knowitColors.lollipop,
+    marginTop: 6,
   },
-}))
+})
 
 interface Props {
   item: AgendaItem
@@ -56,36 +57,49 @@ export function AgendaEvent({ item }: Props) {
       <ExpansionPanelSummary
         expandIcon={item.speakers.length ? <ExpandMoreIcon /> : undefined}
       >
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography variant="h6">{item.title}</Typography>
+        <Grid container>
+          <Grid item xs={1} className={classes.time}>
+            <Typography variant="button">
+              {moment(item.startTime).format("LT")}
+            </Typography>
           </Grid>
 
-          <Grid item xs={12}>
-            <Grid container direction="row">
-              <Grid item>
-                <LocationOnIcon fontSize="small" color="disabled" />
+          <Grid item xs={11}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Typography variant="h6">{item.title}</Typography>
               </Grid>
-              <Grid item>
-                <Typography variant="body2">{item.location}</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
 
-          <Grid item xs={12}>
-            <Grid container direction="row" spacing={1}>
-              {[item.track, ...item.topics].map(topic => (
-                <Grid item key={topic}>
-                  <span
-                    className={classes.dot}
-                    style={{ backgroundColor: generateColor(topic) }}
-                  />
-                  &nbsp;
-                  <Typography variant="caption" className={classes.monoFont}>
-                    {topic}
-                  </Typography>
+              <Grid item xs={12}>
+                <Grid container direction="row">
+                  <Grid item>
+                    <LocationOnIcon fontSize="small" color="disabled" />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2">{item.location}</Typography>
+                  </Grid>
                 </Grid>
-              ))}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Grid container direction="row" spacing={1}>
+                  {[item.track, ...item.topics].map(topic => (
+                    <Grid item key={topic}>
+                      <span
+                        className={classes.dot}
+                        style={{ backgroundColor: generateColor(topic) }}
+                      />
+                      &nbsp;
+                      <Typography
+                        variant="caption"
+                        className={classes.monoFont}
+                      >
+                        {topic}
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
