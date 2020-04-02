@@ -64,11 +64,12 @@ class _MapPageState extends State<MapPage> {
             ),
             layers: [
               TileLayerOptions(
-                urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                    "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                urlTemplate:
+                    "https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/256/"
+                    "{z}/{x}/{y}@2x?access_token={accessToken}",
                 additionalOptions: {
                   'accessToken': mapboxAccessToken,
-                  'id': 'mapbox.streets',
+                  'id': 'streets-v11',
                 },
               ),
               if (geolocationResult.hasData &&
