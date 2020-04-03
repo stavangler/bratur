@@ -122,7 +122,7 @@ jobs:
         run: git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 
       - name: Build with code signing
-        uses: maierj/fastlane-action@v1.2.0
+        uses: maierj/fastlane-action@v1.4.0
         with:
           lane: 'build'
           subdirectory: 'flutter_app/ios'
