@@ -97,7 +97,9 @@ class _MapPageState extends State<MapPage> {
                 fitBoundsOptions: FitBoundsOptions(
                   padding: EdgeInsets.all(50),
                 ),
-                markers: markers,
+                markers: markers
+                    .where((marker) => !(marker is UserLocationMarker))
+                    .toList(),
                 polygonOptions: PolygonOptions(
                     borderColor: KnowitColors.lollipop,
                     color: Colors.black12,

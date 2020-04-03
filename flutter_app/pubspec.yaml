@@ -17,7 +17,10 @@ dependencies:
   flutter_redux: ^0.6.0
   freezed_annotation: ^0.7.1
   flutter_map: ^0.8.2
-  user_location: ^0.1.2
+  user_location:
+    git:
+      url: https://github.com/joharei/user_location_plugin.git
+      ref: 39/bugfix-location-marker-disappears
   flutter_map_marker_cluster: ^0.2.7
   geolocation: ^1.1.2
   cloud_firestore: ^0.13.4+2

@@ -766,9 +766,11 @@ packages:
   user_location:
     dependency: "direct main"
     description:
-      name: user_location
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "39/bugfix-location-marker-disappears"
+      resolved-ref: "1202b9d0d940b402b09fef75eb79c459dbed364b"
+      url: "https://github.com/joharei/user_location_plugin.git"
+    source: git
     version: "0.1.2"
   uuid:
     dependency: transitive
