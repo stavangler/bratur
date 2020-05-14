@@ -17,27 +17,25 @@ dependencies:
   flutter_redux: ^0.6.0
   freezed_annotation: ^0.7.1
   flutter_map: ^0.8.2
-  user_location: ^0.1.2
+  user_location:
+    git:
+      url: https://github.com/joharei/user_location_plugin.git
+      ref: 39/bugfix-location-marker-disappears
   flutter_map_marker_cluster: ^0.2.7
   geolocation: ^1.1.2
-  cloud_firestore: ^0.13.4+1
-#  TODO: keep this version until this issue is fixed: https://github.com/FirebaseExtended/flutterfire/issues/2084
-  firebase_auth: 0.15.4
-  google_sign_in: ^4.1.4
+  cloud_firestore: ^0.13.4+2
+  firebase_auth: ^0.15.5+3
+  google_sign_in: ^4.4.0
   flutter_svg: ^0.17.3+1
   intl: ^0.16.1
-  google_fonts: ^0.3.9
-
-dependency_overrides:
-  #  TODO: keep this version until this issue is fixed: https://github.com/FirebaseExtended/flutterfire/issues/2084
-  firebase_core: 0.4.4
+  google_fonts: ^0.3.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^1.8.0
-  freezed: ^0.9.2
+  build_runner: ^1.8.1
+  freezed: ^0.10.4
 
 
 flutter:
