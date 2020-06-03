@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react'
+import React, {useState} from 'react'
 import {Container, ExpansionPanel, ExpansionPanelSummary, Grid, Typography} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
@@ -28,10 +28,14 @@ function CreateTrip() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  function handleSubmit(/*e: FormEvent<HTMLFormElement>*/) {
+    // e.preventDefault()
     console.log(title, description)
   }
+
+  setTitle("temp")
+  setDescription("temp")
+  handleSubmit()
 
   return (
     <Container maxWidth="lg" className={classes.container}>
