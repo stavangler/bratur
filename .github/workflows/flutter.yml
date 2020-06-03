@@ -42,10 +42,6 @@ jobs:
           echo "$ANDROID_KEY_PROPERTIES" | base64 --decode > key.properties
           echo "$ANDROID_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode > app/google-services.json
           echo "$DART_SECRETS" | base64 --decode > ../lib/secrets.dart
-          test1=$(echo "$ANDROID_SIGNING_KEY" | base64 --decode) echo "test${test1}test" | base64
-          test2=$(echo "$ANDROID_KEY_PROPERTIES" | base64 --decode) echo "test${test2}test" | base64
-          test3=$(echo "$ANDROID_GOOGLE_SERVICES_CREDENTIALS" | base64 --decode) echo "test${test3}test" | base64
-          test3=$(echo "$DART_SECRETS" | base64 --decode) echo "test${test4}test" | base64
 
       - name: Build
         run: |
