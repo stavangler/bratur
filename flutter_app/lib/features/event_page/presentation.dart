@@ -41,10 +41,10 @@ class _EventPageState extends State<EventPage> {
             Padding(padding: EdgeInsets.only(top: 16)),
             Text(
                 '${DateFormat.MMMMEEEEd().addPattern('', ', ').add_jm().format(widget.event.startTime)} - ${DateFormat.jm().format(widget.event.startTime.add(Duration(minutes: widget.event.duration)))}',
-                style: Theme.of(context).textTheme.subtitle2),
+                style: Theme.of(context).textTheme.subtitle),
             Padding(padding: EdgeInsets.only(top: 4)),
             Text(widget.event.location,
-                style: Theme.of(context).textTheme.subtitle2),
+                style: Theme.of(context).textTheme.subtitle),
             Padding(padding: EdgeInsets.only(top: 32)),
             Text(widget.event.description),
             Padding(padding: EdgeInsets.only(top: 16)),

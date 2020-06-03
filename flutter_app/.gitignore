@@ -40,3 +40,6 @@ lib/generated_plugin_registrant.dart
 
 
 lib/secrets.dart
+android/app/src/main/res/values/google_maps_api_key.xml
+android/google_maps_api_key.xml
+ios/Runner/GoogleMapsKey.swift
