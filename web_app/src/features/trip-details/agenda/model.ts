@@ -40,7 +40,7 @@ const agenda: AgendaModel = {
               photoUrl: snapshot.data().photoUrl,
             }),
             toFirestore: modelObject => modelObject,
-          })
+          }),
         ),
         topics: snapshot.data().topics,
         startTime: (snapshot.data()
@@ -48,7 +48,7 @@ const agenda: AgendaModel = {
         duration: snapshot.data().duration,
       }),
       toFirestore: (modelObject: AgendaItem) => modelObject,
-    }
+    },
   ),
 }
 

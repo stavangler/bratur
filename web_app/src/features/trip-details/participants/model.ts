@@ -18,7 +18,7 @@ const participants: Participants = {
         email: snapshot.data().email,
       }),
       toFirestore: (modelObject: Participant) => modelObject,
-    }
+    },
   ),
 }
 

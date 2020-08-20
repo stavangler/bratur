@@ -47,8 +47,8 @@ export function AgendaEvent({ item }: Props) {
       setSpeakers(
         speakers
           .map(snapshot => snapshot.data())
-          .filter(data => !!data) as Speaker[]
-      )
+          .filter(data => !!data) as Speaker[],
+      ),
     )
   }, [item.speakers])
 

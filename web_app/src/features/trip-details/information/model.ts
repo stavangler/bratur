@@ -11,7 +11,7 @@ const tripInformation: InformationModel = {
         .firestore()
         .collection("trips")
         .doc(payload),
-    tripConverter
+    tripConverter,
   ),
 }
 

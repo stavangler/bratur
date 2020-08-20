@@ -43,7 +43,7 @@ export const dataModel = <Data extends {}, SubscribePayload>(
   ) =>
     | firebase.firestore.CollectionReference
     | firebase.firestore.DocumentReference,
-  converter: firebase.firestore.FirestoreDataConverter<Data>
+  converter: firebase.firestore.FirestoreDataConverter<Data>,
 ): DataModel<Data, SubscribePayload, ReturnType<typeof query>> => ({
   data: [],
   loading: true,
@@ -62,7 +62,7 @@ export const dataModel = <Data extends {}, SubscribePayload>(
           console.error(error)
           actions.setLoading(false)
           actions.setError(true)
-        }
+        },
       )
 
       return () => unsubscribe()
@@ -78,7 +78,7 @@ export const dataModel = <Data extends {}, SubscribePayload>(
           console.error(error)
           actions.setLoading(false)
           actions.setError(true)
-        }
+        },
       )
 
       return () => unsubscribe()

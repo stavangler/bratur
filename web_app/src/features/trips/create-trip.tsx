@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {Container, ExpansionPanel, ExpansionPanelSummary, Grid, Typography} from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import {makeStyles} from "@material-ui/core/styles";
+import {Container, ExpansionPanel, ExpansionPanelSummary, Grid, Typography} from "@material-ui/core"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import LocationOnIcon from "@material-ui/icons/LocationOn"
+import {makeStyles} from "@material-ui/core/styles"
 
 const useStyles = makeStyles(theme => ({
   container: {

@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function TripEdit(props: TripProps) {
   const trip = useStoreState(state =>
-    state.trips.data.find(t => t.id === props.match.params.id)
+    state.trips.data.find(t => t.id === props.match.params.id),
   )
   const classes = useStyles()
 

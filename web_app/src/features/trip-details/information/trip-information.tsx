@@ -36,7 +36,7 @@ export default function TripInformation() {
   const { id } = useParams()
   const trip = useStoreState(state => state.tripInformation.data[0])
   const subscribe = useStoreActions(
-    actions => actions.tripInformation.subscribe
+    actions => actions.tripInformation.subscribe,
   )
   const classes = useStyles()
   const { user } = useAuth()
